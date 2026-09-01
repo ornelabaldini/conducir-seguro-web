@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tests | Conducir Seguro</title>
+
+    <link rel="icon" href="image/icon/conducirSegurosIco.ico">
+
+    <!-- CSS reutilizado -->
+    <link rel="stylesheet" href="css/base/variables.css">
+    <link rel="stylesheet" href="css/components/navbar.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+
+    <!-- CSS propio de esta página -->
+    <link rel="stylesheet" href="css/pages/test.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <header class="site-header">
+        <div class="container">
+            <nav class="navbar" aria-label="Navegación principal">
+
+                <a href="index.html" class="navbar__brand">
+                    <img
+                        src="image/logoConducir.png"
+                        alt="Conducir Seguro"
+                        class="navbar__logo"
+                    >
+                </a>
+
+                <button
+                    class="navbar__toggle"
+                    id="nav-toggle"
+                    aria-label="Abrir menú"
+                    aria-expanded="false"
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <div class="navbar__nav" id="nav-menu">
+
+                    <a href="index.html" class="navbar__link">
+                        Inicio
+                    </a>
+
+                    <a href="test.html" class="navbar__link navbar__link--active">
+                        Tests
+                    </a>
+
+                    <a href="about.html" class="navbar__link">
+                        Proyecto
+                    </a>
+
+                    <a href="#" class="navbar__link">
+                        Equipo
+                    </a>
+
+                    <a href="contact.html" class="navbar__link">
+                        Contacto
+                    </a>
+
+                </div>
+
+                <div class="navbar__actions">
+                    <button class="btn-auth" id="auth-btn">
+                        Iniciar sesión
+                    </button>
+                </div>
+
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+    <main>
+
+        <!-- HERO -->
+        <section class="tests-hero">
+            <div class="container">
+
+                <div class="tests-hero__content">
+
+                    <span class="tests-hero__badge">
+                        TESTS COGNITIVOS
+                    </span>
+
+                    <h1 class="tests-hero__title">
+                        Evaluá tus habilidades<br>
+                        para una conducción más segura
+                    </h1>
+
+                    <p class="tests-hero__description">
+                        Nuestros tests miden funciones cognitivas clave como la atención,
+                        los reflejos y el estado de alerta para ayudarte a conocer tu
+                        rendimiento antes de ponerte al volante.
+                    </p>
+
+                    <div class="tests-hero__features">
+
+                        <div class="tests-hero__feature">
+                            <span class="tests-hero__feature-icon">✓</span>
+                            <div>
+                                <strong>Evaluaciones eficientes</strong>
+                                <small>Resultados en minutos</small>
+                            </div>
+                        </div>
+
+                        <div class="tests-hero__feature">
+                            <span class="tests-hero__feature-icon">✓</span>
+                            <div>
+                                <strong>Resultados confiables</strong>
+                                <small>Medición objetiva</small>
+                            </div>
+                        </div>
+
+                        <div class="tests-hero__feature">
+                            <span class="tests-hero__feature-icon">◫</span>
+                            <div>
+                                <strong>Mejorá continuamente</strong>
+                                <small>Conocé tu rendimiento</small>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tests-hero__visual">
+                    <img
+                        src="image/icon/brain-icon.png"
+                        alt="Representación del cerebro"
+                    >
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- FILTROS -->
+        <section class="tests-section">
+            <div class="container">
+
+                <div class="tests-filters">
+
+                    <div class="tests-filters__categories">
+                        <button class="tests-filter active">
+                            Todos los tests
+                        </button>
+
+                        <button class="tests-filter">
+                            Atención
+                        </button>
+
+                        <button class="tests-filter">
+                            Reflejos
+                        </button>
+
+                        <button class="tests-filter">
+                            Estado de alerta
+                        </button>
+
+                        <button class="tests-filter">
+                            Memoria
+                        </button>
+                    </div>
+
+                    <button class="tests-sort">
+                        Más recientes
+                        <span>⌄</span>
+                    </button>
+
+                </div>
+
+
+                <!-- TÍTULO -->
+                <div class="tests-heading">
+
+                    <div>
+                        <h2>Tests disponibles</h2>
+                        <p>
+                            Seleccioná un test para comenzar tu evaluación.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- TESTS -->
+                <div class="tests-grid">
+
+                    <!-- DAX -->
+                    <article class="test-card" data-category="atencion">
+
+                        <span class="test-card__status">
+                            DISPONIBLE
+                        </span>
+
+                        <div class="test-card__header">
+
+                            <div class="test-card__icon">
+                                <img
+                                    src="image/icon/brain-icon.svg"
+                                    alt=""
+                                >
+                            </div>
+
+                            <div>
+                                <h3 class="test-card__title">
+                                    Test DAX
+                                </h3>
+
+                                <span class="test-card__category">
+                                    Evaluación de atención
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <p class="test-card__description">
+                            Mide tu capacidad de atención y velocidad
+                            de respuesta mediante una secuencia de
+                            estímulos visuales.
+                        </p>
+
+                        <div class="test-card__info">
+
+                            <span>
+                                ◷
+                                <strong>60</strong>
+                                segundos
+                            </span>
+
+                            <span>
+                                ◷
+                                <strong>5</strong>
+                                minutos
+                            </span>
+
+                            <span>
+                                ◉
+                                Atención
+                                sostenida
+                            </span>
+
+                        </div>
+
+                        <button class="btn btn--secondary btn--full">
+                            Comenzar test
+                            <span class="btn__arrow">→</span>
+                        </button>
+
+                    </article>
+
+
+                    <!-- ATENCIÓN -->
+                    <article class="test-card">
+
+                        <span class="test-card__status">
+                            DISPONIBLE
+                        </span>
+
+                        <div class="test-card__header">
+
+                            <div class="test-card__icon">
+                                <img
+                                    src="image/icon/eye-icon.svg"
+                                    alt=""
+                                >
+                            </div>
+
+                            <div>
+                                <h3 class="test-card__title">
+                                    Test de Atención Sostenida
+                                </h3>
+
+                                <span class="test-card__category">
+                                    Mantenimiento disponible
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <p class="test-card__description">
+                            Evalúa tu capacidad para mantener la
+                            concentración durante períodos prolongados.
+                        </p>
+
+                        <div class="test-card__info">
+
+                            <span>
+                                ◷
+                                <strong>3</strong>
+                                minutos
+                            </span>
+
+                            <span>
+                                ◷
+                                <strong>5</strong>
+                                minutos
+                            </span>
+
+                            <span>
+                                ◉
+                                Atención
+                                concentración
+                            </span>
+
+                        </div>
+
+                        <button class="btn btn--secondary btn--full">
+                            Comenzar test
+                            <span class="btn__arrow">→</span>
+                        </button>
+
+                    </article>
+
+
+                    <!-- REFLEJOS -->
+                    <article class="test-card" data-category="reflejos">
+
+                        <span class="test-card__status">
+                            PRÓXIMAMENTE
+                        </span>
+
+                        <div class="test-card__header">
+
+                            <div class="test-card__icon test-card__icon--bolt">
+                                <img
+                                    src="image/icon/bolt-icon.svg"
+                                    alt=""
+                                >
+                            </div>
+
+                            <div>
+                                <h3 class="test-card__title">
+                                    Test de Reflejos
+                                </h3>
+
+                                <span class="test-card__category">
+                                    Tiempo de respuesta
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <p class="test-card__description">
+                            Mide tu tiempo de reacción ante diferentes
+                            estímulos y situaciones.
+                        </p>
+
+                        <div class="test-card__info">
+
+                            <span>
+                                ◷
+                                minutos
+                            </span>
+
+                            <span>
+                                ◷
+                                minutos
+                            </span>
+
+                            <span>
+                                ◉
+                                Reflejos
+                                Tiempo reacción
+                            </span>
+
+                        </div>
+
+                        <button
+                            class="btn btn--secondary btn--full"
+                            disabled
+                        >
+                            Próximamente
+                        </button>
+
+                    </article>
+
+
+                    <!-- FATIGA -->
+                    <article class="test-card" data-category="alerta">
+
+                        <span class="test-card__status">
+                            PRÓXIMAMENTE
+                        </span>
+
+                        <div class="test-card__header">
+
+                            <div class="test-card__icon test-card__icon--moon">
+                                <img
+                                    src="image/icon/moon-icon.svg"
+                                    alt=""
+                                >
+                            </div>
+
+                            <div>
+                                <h3 class="test-card__title">
+                                    Test de Fatiga
+                                </h3>
+
+                                <span class="test-card__category">
+                                    Estado de alerta
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <p class="test-card__description">
+                            Evalúa el nivel de fatiga y estado de alerta
+                            antes de comenzar un trayecto.
+                        </p>
+
+                        <div class="test-card__info">
+
+                            <span>
+                                ◷
+                                minutos
+                            </span>
+
+                            <span>
+                                ◷
+                                minutos
+                            </span>
+
+                            <span>
+                                ◉
+                                Estado de alerta
+                                Fatiga
+                            </span>
+
+                        </div>
+
+                        <button
+                            class="btn btn--secondary btn--full"
+                            disabled
+                        >
+                            Próximamente
+                        </button>
+
+                    </article>
+
+                </div>
+
+
+                <!-- BENEFICIOS -->
+                <section class="tests-benefits">
+
+                    <div class="tests-benefit">
+
+                        <div class="tests-benefit__icon">
+                            🛡️
+                        </div>
+
+                        <div>
+                            <h3>Seguridad primero</h3>
+                            <p>
+                                Todas las evaluaciones están pensadas
+                                para ayudarte a conducir de forma segura.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="tests-benefit">
+
+                        <div class="tests-benefit__icon">
+                            📊
+                        </div>
+
+                        <div>
+                            <h3>Resultados claros</h3>
+                            <p>
+                                Visualizá rápidamente tu rendimiento
+                                y evolución.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="tests-benefit">
+
+                        <div class="tests-benefit__icon">
+                            🏅
+                        </div>
+
+                        <div>
+                            <h3>Tests validados</h3>
+                            <p>
+                                Evaluaciones diseñadas especialmente
+                                para el contexto vial.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- CTA FINAL -->
+                <section class="tests-cta">
+
+                    <div class="tests-cta__visual">
+                        <span>▣</span>
+                    </div>
+
+                    <div class="tests-cta__content">
+
+                        <h2>
+                            ¿Listo para empezar?
+                        </h2>
+
+                        <p>
+                            Elegí un test disponible y comenzá tu evaluación
+                            en menos de un minuto.
+                        </p>
+
+                    </div>
+
+                    <button class="btn btn--primary">
+                        Comenzar evaluación
+                        <span class="btn__arrow">→</span>
+                    </button>
+
+                </section>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer__grid">
+
+                <div class="footer__col footer__col--brand">
+
+                    <a href="index.html" class="footer__brand-logo">
+                        <img
+                            src="image/logoConducir.png"
+                            alt="Conducir Seguro"
+                            class="footer__logo-img"
+                        >
+                    </a>
+
+                    <h3 class="footer__brand-title">
+                        Conducir Seguro
+                    </h3>
+
+                    <p class="footer__description">
+                        Sistema de Verificación Cognitiva para la
+                        Gestión del Riesgo Vial.
+                    </p>
+
+                    <div class="footer__socials">
+                        <a href="#" aria-label="Facebook">f</a>
+                        <a href="#" aria-label="Instagram">◎</a>
+                        <a href="#" aria-label="LinkedIn">in</a>
+                    </div>
+
+                </div>
+
+
+                <div class="footer__col">
+
+                    <h3>Navegación</h3>
+
+                    <a href="index.html" class="footer__link">
+                        Inicio
+                    </a>
+
+                    <a href="test.html" class="footer__link">
+                        Tests
+                    </a>
+
+                    <a href="about.html" class="footer__link">
+                        Proyecto
+                    </a>
+
+                    <a href="#" class="footer__link">
+                        Equipo
+                    </a>
+
+                    <a href="contact.html" class="footer__link">
+                        Contacto
+                    </a>
+
+                </div>
+
+
+                <div class="footer__col">
+
+                    <h3>Recursos</h3>
+
+                    <a href="contact.html" class="footer__link">
+                        Centro de Ayuda
+                    </a>
+
+                    <a href="guide.html" class="footer__link">
+                        Guía de Uso
+                    </a>
+
+                    <a href="faq.html" class="footer__link">
+                        Preguntas Frecuentes
+                    </a>
+
+                    <a href="terms.html" class="footer__link">
+                        Términos y Condiciones
+                    </a>
+
+                    <a href="privacy.html" class="footer__link">
+                        Política de Privacidad
+                    </a>
+
+                </div>
+
+
+                <div class="footer__col">
+
+                    <h3>Contacto</h3>
+
+                    <p>
+                        preceptoria@isft194.edu.ar
+                    </p>
+
+                    <p>
+                        +54 2291 433791
+                    </p>
+
+                    <p>
+                        Instituto Superior de Formación
+                        Técnica N.º 194
+                    </p>
+
+                </div>
+
+
+                <div class="footer__col footer__col--institution">
+
+                    <img
+                        src="image/isft194_173px.png"
+                        alt="ISFT 194"
+                        class="footer__isft-logo"
+                    >
+
+                    <p class="footer__isft-text">
+                        Universidad Nacional<br>
+                        de Tecnología
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer__bottom">
+
+                <p>
+                    © 2026 Conducir Seguro. Todos los derechos reservados.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script type="module" src="js/app.js"></script>
+
+</body>
+</html>
