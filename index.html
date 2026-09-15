@@ -1,18 +1,338 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Conducir Seguro</title>
-
-    <link rel="stylesheet" href="css/styles.css">
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>ConducirSeguros | Sistema de Verificación Cognitiva</title>
+      <meta name="description" content="Sistema de Verificación Cognitiva previa a la conducción de carácter preventivo.">
+      <link rel="icon" href="image/icon/conducirSegurosIco.ico" type="image/x-icon">
+      
+      <!-- Hojas de Estilo CSS Modulares -->
+      <link rel="stylesheet" href="css/base/variables.css">
+      <link rel="stylesheet" href="css/components/navbar.css">
+      <link rel="stylesheet" href="css/components/footer.css">
+      <link rel="stylesheet" href="css/pages/home.css">                                                  
 </head>
-
 <body>
 
-    <h1>Conducir Seguro</h1>
+      <!-- Header Principal -->
+      <header class="site-header">
+            <div class="container">
+                  <nav class="navbar" aria-label="Navegación principal">
+                  <a href="index.html" class="navbar__brand" aria-label="ConducirSeguros Inicio">
+                        <img src="image/logoConducir.png" alt="ConducirSeguros Logo" class="navbar__logo">
+                  </a>
 
-    <script src="js/script.js"></script>
+                  <button class="navbar__toggle" id="nav-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+                        ☰
+                  </button>
+
+                  <ul class="navbar__nav" id="nav-menu">
+                        <li><a href="index.html" class="navbar__link navbar__link--active">Inicio</a></li>
+                        <li><a href="test.html" class="navbar__link">Tests</a></li>
+                        <li><a href="about.html" class="navbar__link">Proyecto</a></li>
+                        
+                        <!-- <li><a href="team.html" class="navbar__link">Equipo</a></li>-->
+                        <li><a href="contact.html" class="navbar__link">Contacto</a></li>
+                  </ul>
+
+                  <div class="navbar__actions">
+                        <button class="btn-auth" id="auth-btn">
+                              <span>Iniciar sesión</span>
+                        </button>
+                  </div>
+                  </nav>
+            </div>
+      </header>
+
+      <!-- Contenido Principal -->
+      <main id="main-content">
+            
+            <!-- 1. HERO SECTION -->
+            <section class="hero">
+                  <div class="hero__overlay"></div>
+                  <div class="container hero__container">
+                        <div class="hero__content">
+                              <h1 class="hero__title">Conducir Seguro</h1>
+                              <p class="hero__subtitle">Un minuto que protege tu vida.</p>
+                              <p class="hero__description">
+                                    Sistema de Verificación Cognitiva para la Gestión del Riesgo Vial.
+                              </p>
+                              <div class="hero__actions">
+                                    <a href="test.html" class="btn btn--primary btn--lg">
+                                          <span>Comenzar un Test</span>
+                                          <svg class="btn__icon" viewBox="0 0 24 24" width="20" height="20">
+                                                <path fill="currentColor" d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                          </svg>
+                                    </a>
+                              </div>
+                        </div>
+
+                        <!-- Highlights Tira Inferior Hero -->
+                        <div class="hero__features">
+                              <div class="feature-item">
+                                    <div class="feature-item__icon">
+                                          <svg viewBox="0 0 24 24" width="24" height="24"><path fill="none" stroke="currentColor" stroke-width="2" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8a8 8 0 0 1-8 8zM12 6v6l4 2"/></svg>
+                                    </div>
+                                    <span class="feature-item__text">Evalúa tu estado cognitivo</span>
+                              </div>
+                              <div class="feature-item">
+                                    <div class="feature-item__icon">
+                                          <svg viewBox="0 0 24 24" width="24" height="24"><path fill="none" stroke="currentColor" stroke-width="2" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                    </div>
+                                    <span class="feature-item__text">Reduce riesgos en la conducción</span>
+                              </div>
+                              <div class="feature-item">
+                                    <div class="feature-item__icon">
+                                          <svg viewBox="0 0 24 24" width="24" height="24"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 3v18h18M7 16l4-4 4 4 5-6"/></svg>
+                                    </div>
+                                    <span class="feature-item__text">Mejora tu seguridad y la de todos</span>
+                              </div>
+                        </div>
+                  </div>
+            </section>
+
+            <!-- 2. ¿QUÉ ES CONDUCIR SEGURO? -->
+            <section class="about-summary section-padding">
+                  <div class="container about-summary__grid">
+                        <div class="about-summary__content">
+                              <span class="badge-tag">¿QUÉ ES CONDUCIR SEGURO?</span>
+                              <h2 class="section-title">Tecnología que cuida tu bienestar y tu camino</h2>
+                              <p class="section-description">
+                                    Conducir Seguro es un sistema de evaluación cognitiva que permite medir tu atención, reflejos, fatiga y toma de decisiones antes de ponerte al volante.
+                              </p>
+                              <ul class="checklist">
+                                    <li class="checklist__item">
+                                          <span class="checklist__icon">✓</span>
+                                          <span>Evaluaciones rápidas y científicas</span>
+                                    </li>
+                                    <li class="checklist__item">
+                                          <span class="checklist__icon">✓</span>
+                                          <span>Resultados confiables al instante</span>
+                                    </li>
+                                    <li class="checklist__item">
+                                          <span class="checklist__icon">✓</span>
+                                          <span>Basado en métricas cognitivas avanzadas</span>
+                                    </li>
+                                    <li class="checklist__item">
+                                          <span class="checklist__icon">✓</span>
+                                          <span>Contribuye a una conducción más responsable</span>
+                                    </li>
+                              </ul>
+                        </div>
+                        <div class="about-summary__media">
+                              <img src="image/mockup-app-phones.jpg" alt="Mockups App ConducirSeguros en smartphones" class="about-summary__img">
+                        </div>
+                  </div>
+            </section>
+
+            <!-- 3. TESTS DISPONIBLES -->
+            <section class="tests-summary section-padding bg-alt">
+                  <div class="container">
+                        <div class="section-header text-center">
+                              <span class="badge-tag">TESTS DISPONIBLES</span>
+                              <h2 class="section-title">Pon a prueba tus habilidades cognitivas</h2>
+                        </div>
+
+                        <div class="tests-grid">
+                              <!-- Card 1: Test DAX -->
+                              <article class="test-card">
+                                    <div class="test-card__icon test-card__icon--brain">
+                                          <img src="image/icon/brain-icon.svg" alt="" aria-hidden="true" onerror="this.remove()">
+                                    </div>
+                                    <h3 class="test-card__title">Test DAX</h3>
+                                    <p class="test-card__desc">Evalúa tu capacidad de atención y concentración.</p>
+                                    <a href="test.html" class="btn btn--secondary btn--full">
+                                          <span>Realizar Test</span>
+                                          <span class="btn__arrow">→</span>
+                                    </a>
+                              </article>
+
+                              <!-- Card 2: Test de Atención -->
+                              <article class="test-card">
+                                    <div class="test-card__icon test-card__icon--eye">
+                                          <img src="image/icon/eye-icon.svg" alt="" aria-hidden="true" onerror="this.remove()">
+                                    </div>
+                                    <h3 class="test-card__title">Test de Atención</h3>
+                                    <p class="test-card__desc">Mide tu nivel de atención sostenida y selectiva.</p>
+                                    <a href="test.html" class="btn btn--secondary btn--full">
+                                          <span>Realizar Test</span>
+                                          <span class="btn__arrow">→</span>
+                                    </a>
+                              </article>
+
+                              <!-- Card 3: Test de Reflejos -->
+                              <article class="test-card">
+                                    <div class="test-card__icon test-card__icon--bolt">
+                                          <img src="image/icon/bolt-icon.svg" alt="" aria-hidden="true" onerror="this.remove()">
+                                    </div>
+                                    <h3 class="test-card__title">Test de Reflejos</h3>
+                                    <p class="test-card__desc">Evalúa tu tiempo de reacción y reflejos.</p>
+                                    <a href="test.html" class="btn btn--secondary btn--full">
+                                          <span>Realizar Test</span>
+                                          <span class="btn__arrow">→</span>
+                                    </a>
+                              </article>
+
+                              <!-- Card 4: Test de Fatiga -->
+                              <article class="test-card">
+                                    <div class="test-card__icon test-card__icon--moon">
+                                          <img src="image/icon/moon-icon.svg" alt="" aria-hidden="true" onerror="this.remove()">
+                                    </div>
+                                    <h3 class="test-card__title">Test de Fatiga</h3>
+                                    <p class="test-card__desc">Detecta tu nivel de fatiga y cansancio mental.</p>
+                                    <a href="test.html" class="btn btn--secondary btn--full">
+                                          <span>Realizar Test</span>
+                                          <span class="btn__arrow">→</span>
+                                    </a>
+                              </article>
+                        </div>
+                  </div>
+            </section>
+
+            <!-- 4. CONOCE AL EQUIPO -->
+            <section class="team-summary section-padding">
+                  <div class="container">
+                        <div class="team-summary__header">
+                              <div>
+                                    <span class="badge-tag">CONOCE AL EQUIPO</span>
+                                    <h2 class="section-title">Detrás de Conducir Seguro</h2>
+                              </div>
+                              <a href="about.html" class="link-more">
+                                    <span>Ver más sobre el equipo</span>
+                                    <span class="link-more__arrow">→</span>
+                              </a>
+                        </div>
+
+                        <div class="team-grid">
+                              <!-- Miembro 1 -->
+                              <article class="team-card">
+                                    <img src="image/team/member1.jpg" alt="Fernando Carrazana" class="team-card__avatar">
+                                    <h3 class="team-card__name">Fernando Carrazana</h3>
+                                    <p class="team-card__role">Desarrollador Principal</p>
+                                    <div class="team-card__socials">
+                                          <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77Z"/></svg></a>
+                                          <a href="#" aria-label="Email"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5l-8-5V6l8 5l8-5v2z"/></svg></a>
+                                    </div>
+                              </article>
+
+                              <!-- Miembro 2 -->
+                              <article class="team-card">
+                                    <img src="image/team/member2.jpg" alt="Santiago Kott" class="team-card__avatar">
+                                    <h3 class="team-card__name">Santiago Kott</h3>
+                                    <p class="team-card__role">Desarrollador Backend</p>
+                                    <div class="team-card__socials">
+                                          <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77Z"/></svg></a>
+                                          <a href="#" aria-label="Email"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5l-8-5V6l8 5l8-5v2z"/></svg></a>
+                                    </div>
+                              </article>
+
+                              <!-- Miembro 3 -->
+                              <article class="team-card">
+                                    <img src="image/team/member3.jpg" alt="María González" class="team-card__avatar">
+                                    <h3 class="team-card__name">María González</h3>
+                                    <p class="team-card__role">Diseñadora UX/UI</p>
+                                    <div class="team-card__socials">
+                                          <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77Z"/></svg></a>
+                                          <a href="#" aria-label="Email"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5l-8-5V6l8 5l8-5v2z"/></svg></a>
+                                    </div>
+                              </article>
+
+                              <!-- Miembro 4 -->
+                              <article class="team-card">
+                                    <img src="image/team/member4.jpg" alt="Julián Pérez" class="team-card__avatar">
+                                    <h3 class="team-card__name">Julián Pérez</h3>
+                                    <p class="team-card__role">Investigador</p>
+                                    <div class="team-card__socials">
+                                          <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77Z"/></svg></a>
+                                          <a href="#" aria-label="Email"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5l-8-5V6l8 5l8-5v2z"/></svg></a>
+                                    </div>
+                              </article>
+                        </div>
+                  </div>
+            </section>
+      </main>
+
+      <!-- Script de entrada usando modulos ES6 -->
+      <script type="module" src="js/app.js"></script>
+
+      <footer class="site-footer">
+      <div class="container">
+            <div class="footer__grid">
+                  
+                  <!-- Columna 1: Branding y Propósito -->
+                  <div class="footer__col">
+                  <div class="footer__brand-logo">
+                        <img src="image/logoConducir.png" alt="ConducirSeguros" class="footer__logo-img">
+                        <span class="footer__brand-title">Conducir Seguro</span>
+                  </div>
+                  <p class="footer__description">
+                        Sistema de Verificación Cognitiva para la Gestión del Riesgo Vial. Promovemos una conducción responsable y segura a través de la tecnología y la ciencia.
+                  </p>
+                  <div class="footer__socials">
+                        <a href="https://github.com" class="footer__social-link" aria-label="GitHub" target="_blank" rel="noopener">
+                              <svg class="footer__social-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.1-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33c.85 0 1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
+                        </a>
+                        <a href="https://linkedin.com" class="footer__social-link" aria-label="LinkedIn" target="_blank" rel="noopener">
+                              <svg class="footer__social-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77Z"/></svg>
+                        </a>
+                        <a href="https://youtube.com" class="footer__social-link" aria-label="YouTube" target="_blank" rel="noopener">
+                              <svg class="footer__social-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83c-.25.9-.83 1.48-1.73 1.73c-.47.13-1.33.22-2.65.28c-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44c-.9-.25-1.48-.83-1.73-1.73c-.13-.47-.22-1.1-.28-1.9c-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83c.25-.9.83-1.48 1.73-1.73c.47-.13 1.33-.22 2.65-.28c1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44c.9.25 1.48.83 1.73 1.73Z"/></svg>
+                        </a>
+                  </div>
+                  </div>
+
+                  <!-- Columna 2: Navegación -->
+                  <div class="footer__col">
+                  <h4 class="footer__column-title">Navegación</h4>
+                  <ul class="footer__list">
+                        <li><a href="index.html" class="footer__link">Inicio</a></li>
+                        <li><a href="test.html" class="footer__link">Tests</a></li>
+                        <li><a href="about.html" class="footer__link">Proyecto</a></li>
+                        
+                        <!--<li><a href="team.html" class="footer__link">Equipo</a></li>-->
+                        <li><a href="contact.html" class="footer__link">Contacto</a></li>
+                  </ul>
+                  </div>
+
+                  <!-- Columna 3: Recursos -->
+                  <div class="footer__col">
+                  <h4 class="footer__column-title">Recursos</h4>
+                  <ul class="footer__list">
+                        <li><a href="faq.html" class="footer__link">Centro de Ayuda</a></li>
+                        <li><a href="guide.html" class="footer__link">Guía de Uso</a></li>
+                        <li><a href="faq.html#preguntas" class="footer__link">Preguntas Frecuentes</a></li>
+                        <li><a href="terms.html" class="footer__link">Términos y Condiciones</a></li>
+                        <li><a href="privacy.html" class="footer__link">Política de Privacidad</a></li>
+                  </ul>
+                  </div>
+
+                  <!-- Columna 4: Contacto Rapido -->
+                  <div class="footer__col">
+                  <h4 class="footer__column-title">Contacto</h4>
+                  <ul class="footer__list">
+                        <li><a href="mailto:gaffosati@gmail.com" class="footer__link">gaffosati@gmail.com</a></li>
+                        <li><span class="footer__link">+54 2291 433791</span></li>
+                        <li><span class="footer__link">Instituto Superior de Foración Tecnica nro. 194 - ISFT</span></li>
+                  </ul>
+                  </div>
+
+                  <!-- Columna 5: Institucional (ISFT) -->
+                  <div class="footer__col footer__institution">
+                  <img src="image/isft194_173px.png" alt="Universidad Tecnológica Nacional" class="footer__isft-logo">
+                  <p class="footer__isft-text">
+                        Instituto Superior de Foración Tecnica nro. 194<br>
+                        Instituto Regional de Miramar - Buenos Aires
+                  </p>
+                  </div>
+
+            </div>
+
+            <!-- Copy Bottom -->
+            <div class="footer__bottom">
+                  <p>&copy; 2026 Conducir Seguro. Todos los derechos reservados.</p>
+            </div>
+      </div>
+      </footer>
 </body>
 </html>
