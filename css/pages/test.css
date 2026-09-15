@@ -464,6 +464,227 @@
 
 
 /* =========================================================
+   AJUSTE DE LEGIBILIDAD
+   ========================================================= */
+
+.tests-hero__badge {
+    font-size: 12px;
+}
+
+.tests-hero__title {
+    font-size: 40px;
+}
+
+.tests-hero__description {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.tests-hero__features {
+    gap: 35px;
+}
+
+.tests-hero__feature-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+}
+
+.tests-hero__feature strong {
+    font-size: 12px;
+}
+
+.tests-hero__feature small {
+    font-size: 10px;
+}
+
+.tests-filter {
+    padding: 9px 14px;
+    font-size: 12px;
+}
+
+.tests-sort {
+    padding: 10px 14px;
+    font-size: 12px;
+}
+
+.tests-heading h2 {
+    font-size: 25px;
+}
+
+.tests-heading p {
+    font-size: 12px;
+}
+
+.test-card {
+    min-height: 250px;
+    padding: 20px;
+}
+
+.test-card__status {
+    margin-bottom: 15px;
+    padding: 5px 8px;
+    font-size: 9px;
+}
+
+.test-card__header {
+    gap: 14px;
+}
+
+.test-card__icon {
+    width: 58px;
+    height: 58px;
+}
+
+.test-card__icon img {
+    width: 34px;
+    height: 34px;
+}
+
+.test-card__title {
+    font-size: 17px;
+}
+
+.test-card__category {
+    font-size: 11px;
+}
+
+.test-card__description {
+    min-height: 45px;
+    margin: 16px 0 18px;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.test-card__info {
+    gap: 22px;
+    margin-bottom: 16px;
+    font-size: 11px;
+}
+
+.test-card .btn {
+    min-height: 38px;
+    padding: 9px 14px;
+    font-size: 12px;
+}
+
+.tests-benefit {
+    padding: 15px;
+}
+
+.tests-benefit h3 {
+    font-size: 12px;
+}
+
+.tests-benefit p {
+    font-size: 10px;
+}
+
+.tests-cta__content h2 {
+    font-size: 17px;
+}
+
+.tests-cta__content p {
+    font-size: 11px;
+}
+
+.tests-cta .btn {
+    min-height: 38px;
+    font-size: 12px;
+}
+
+@media (max-width: 700px) {
+    .tests-hero__title {
+        font-size: 32px;
+    }
+
+    .tests-hero__description {
+        font-size: 14px;
+    }
+
+    .tests-filter,
+    .tests-sort {
+        font-size: 12px;
+    }
+
+    .tests-heading h2 {
+        font-size: 22px;
+    }
+
+    .test-card__title {
+        font-size: 16px;
+    }
+
+    .test-card__description {
+        font-size: 13px;
+    }
+
+    .test-card__info {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tests-hero__title {
+        font-size: 28px;
+    }
+
+    .tests-hero__description {
+        font-size: 13px;
+    }
+}
+
+
+/* ===== ICONOS DE BENEFICIOS ===== */
+
+.tests-benefit__icon svg {
+    width: 18px;
+    height: 18px;
+    color: #1687d9;
+    display: block;
+}
+
+.tests-benefit__icon {
+    color: #1687d9;
+}
+
+/* ===== ICONOS VARIADOS TESTS ===== */
+
+.test-card__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.tests-benefit__icon svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+.tests-benefit__icon {
+    color: #1687d9;
+}
+
+/* ===== ICONOS TESTS Y BENEFICIOS ===== */
+
+.test-card__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.tests-benefit__icon svg {
+    width: 19px;
+    height: 19px;
+    display: block;
+}
+
+.tests-benefit__icon {
+    color: #1687d9;
+}
+
+/* =========================================================
    RESPONSIVE
    ========================================================= */
 
@@ -539,7 +760,7 @@
         font-size: 10px;
     }
 
-    .tests-card__info {
+    .test-card__info {
         flex-wrap: wrap;
     }
 }
