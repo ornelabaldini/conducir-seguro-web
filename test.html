@@ -19,63 +19,35 @@
 
 <body>
 
-    <!-- ================= NAVBAR ================= -->
-    <header class="site-header">
-        <div class="container">
-            <nav class="navbar" aria-label="Navegación principal">
+    <!-- Header Principal -->
+      <header class="site-header">
+            <div class="container">
+                  <nav class="navbar" aria-label="Navegación principal">
+                  <a href="index.html" class="navbar__brand" aria-label="ConducirSeguros Inicio">
+                        <img src="image/logoConducir.png" alt="ConducirSeguros Logo" class="navbar__logo">
+                  </a>
 
-                <a href="index.html" class="navbar__brand">
-                    <img
-                        src="image/logoConducir.png"
-                        alt="Conducir Seguro"
-                        class="navbar__logo"
-                    >
-                </a>
+                  <button class="navbar__toggle" id="nav-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+                        ☰
+                  </button>
 
-                <button
-                    class="navbar__toggle"
-                    id="nav-toggle"
-                    aria-label="Abrir menú"
-                    aria-expanded="false"
-                >
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+                  <ul class="navbar__nav" id="nav-menu">
+                        <li><a href="index.html" class="navbar__link navbar__link--active">Inicio</a></li>
+                        <li><a href="test.html" class="navbar__link">Tests</a></li>
+                        <li><a href="about.html" class="navbar__link">Proyecto</a></li>
+                        
+                        <!-- <li><a href="team.html" class="navbar__link">Equipo</a></li>-->
+                        <li><a href="contact.html" class="navbar__link">Contacto</a></li>
+                  </ul>
 
-                <div class="navbar__nav" id="nav-menu">
-
-                    <a href="index.html" class="navbar__link">
-                        Inicio
-                    </a>
-
-                    <a href="test.html" class="navbar__link navbar__link--active">
-                        Tests
-                    </a>
-
-                    <a href="about.html" class="navbar__link">
-                        Proyecto
-                    </a>
-
-                    <a href="#" class="navbar__link">
-                        Equipo
-                    </a>
-
-                    <a href="contact.html" class="navbar__link">
-                        Contacto
-                    </a>
-
-                </div>
-
-                <div class="navbar__actions">
-                    <button class="btn-auth" id="auth-btn">
-                        Iniciar sesión
-                    </button>
-                </div>
-
-            </nav>
-        </div>
-    </header>
+                  <div class="navbar__actions">
+                        <button class="btn-auth" id="auth-btn">
+                              <span>Iniciar sesión</span>
+                        </button>
+                  </div>
+                  </nav>
+            </div>
+      </header>
 
 
     <!-- ================= MAIN ================= -->
