@@ -1,8 +1,5 @@
-/* ==========================================
-   DESIGN TOKENS & VARIABLES GLOBALES (SOLID - SRP)
-   ========================================== */
-:root {
-  /* Color Palette - Extraída directamente de la interfaz */
+﻿:root {
+  /* Color Palette */
   --bg-dark-header: #07152b;
   --bg-dark-gradient: linear-gradient(135deg, #07152b 0%, #0d284f 100%);
   --bg-light-body: #f4f7fa;
@@ -15,7 +12,7 @@
   --color-text-main: #1e293b;
   --color-text-muted: #64748b;
   --color-text-light: #f8fafc;
-  
+
   --color-border: #e2e8f0;
   --color-badge-available: #e0f2fe;
   --color-badge-text-available: #0369a1;
@@ -27,24 +24,4 @@
   --border-radius-lg: 20px;
   --transition-fast: 0.2s ease-in-out;
   --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
-}
-
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: var(--bg-light-body);
-  color: var(--color-text-main);
-  line-height: 1.6;
-}
-
-.container {
-  width: 100%;
-  max-width: var(--container-max-width);
-  margin: 0 auto;
-  padding: 0 1.5rem;
 }
