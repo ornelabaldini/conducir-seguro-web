@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -15,6 +15,10 @@
 
     <!-- CSS propio de esta página -->
     <link rel="stylesheet" href="css/pages/test.css">
+    <link rel="stylesheet" href="css/pages/dax.css">
+    <link rel="stylesheet" href="css/pages/atencion.css">
+    <link rel="stylesheet" href="css/pages/reflejos.css">
+    <link rel="stylesheet" href="css/pages/fatiga.css">
 </head>
 
 <body>
@@ -169,7 +173,8 @@
                         <button class="tests-filter">
                             Memoria
                         </button>
-                    </div>
+
+                        </div>
 
                     <button class="tests-sort">
                         Más recientes
@@ -192,14 +197,268 @@
                 </div>
 
 
+                <!-- TEST DAX INTERACTIVO -->
+                <section id="dax-panel" class="dax-panel" hidden aria-live="polite">
+                    <div class="dax-panel__top">
+                        <span class="dax-eyebrow">CONDUCIR SEGURO · TEST DAX</span>
+                        <button type="button" id="dax-close" class="dax-close">Volver a los tests</button>
+                    </div>
+
+                    <div id="dax-intro">
+                        <h2>Atención y lectura de patrones</h2>
+                        <p>Vas a ver letras de a una. Presioná RESPONDER únicamente cuando la letra actual sea X y la letra inmediatamente anterior haya sido A (secuencia A → X). En cualquier otro caso, no presiones nada.</p>
+                        <ul>
+                            <li>Si aparece A y luego X, respondé.</li>
+                            <li>Si aparece X sin que la letra anterior sea A, no respondas.</li>
+                            <li>Respondé lo más rápido posible, sin anticiparte.</li>
+                        </ul>
+                        <p class="dax-note">La prueba dura aproximadamente un minuto. Hacela sentado, sin distracciones y nunca mientras conducís.</p>
+                        <button type="button" id="dax-start" class="dax-action">Iniciar prueba</button>
+                    </div>
+
+                    <div id="dax-game" hidden>
+                        <div class="dax-progress">
+                            <span id="dax-progress-label">Estímulo 1 de 60</span>
+                            <span id="dax-clock">Preparado</span>
+                        </div>
+                        <div id="dax-letter" class="dax-letter" aria-label="Estímulo">+</div>
+                        <p id="dax-feedback" class="dax-feedback">Mantené la atención en la secuencia.</p>
+                        <button type="button" id="dax-respond" class="dax-action dax-action--respond">RESPONDER</button>
+                        <p class="dax-hint">También podés usar la barra espaciadora.</p>
+                    </div>
+
+                    <div id="dax-results" hidden>
+                        <h2>Resultados de tu prueba</h2>
+                        <div class="dax-results-grid">
+                            <div><span>Aciertos</span><strong id="dax-hits">0</strong></div>
+                            <div><span>Omisiones</span><strong id="dax-omissions">0</strong></div>
+                            <div><span>Respuestas incorrectas</span><strong id="dax-errors">0</strong></div>
+                            <div><span>Reacción media</span><strong id="dax-average">—</strong></div>
+                        </div>
+                        <p id="dax-summary"></p>
+                        <p class="dax-note">Este ejercicio es orientativo, no constituye una evaluación clínica ni determina por sí solo si estás en condiciones de conducir. Si tenés sueño, consumiste alcohol o te sentís afectado, no conduzcas aunque el resultado sea bueno.</p>
+                        <button type="button" id="dax-restart" class="dax-action">Repetir prueba</button>
+                    </div>
+                </section>
+                <!-- TEST DE ATENCIÓN SOSTENIDA -->
+                <section id="atencion-panel" class="dax-panel" hidden aria-live="polite">
+                    <div class="dax-panel__top">
+                        <span class="dax-eyebrow">CONDUCIR SEGURO · ATENCIÓN SOSTENIDA</span>
+                        <button type="button" id="atencion-close" class="dax-close">Volver a los tests</button>
+                    </div>
+
+                    <div id="atencion-intro">
+                        <h2>Test de Atención Sostenida</h2>
+                        <p>Vas a observar símbolos que aparecerán de a uno. Presioná RESPONDER solamente cuando aparezca el círculo verde. No respondas ante los demás símbolos.</p>
+                        <ul>
+                            <li>Mantené la atención durante toda la prueba.</li>
+                            <li>Respondé una sola vez por estímulo.</li>
+                            <li>Si no aparece el objetivo, no presiones nada.</li>
+                        </ul>
+                        <p class="dax-note">La prueba dura aproximadamente 1 minuto y 30 segundos. Realizala sentado, en un ambiente tranquilo y nunca mientras conducís.</p>
+                        <button type="button" id="atencion-start" class="dax-action">Iniciar prueba</button>
+                    </div>
+
+                    <div id="atencion-game" hidden>
+                        <div class="dax-progress">
+                            <span id="atencion-progress">Estímulo 1 de 100</span>
+                            <span id="atencion-clock">Preparado</span>
+                        </div>
+                        <div id="atencion-symbol" class="dax-letter" aria-label="Estímulo">+</div>
+                        <p id="atencion-feedback" class="dax-feedback">Preparáte para observar.</p>
+                        <button type="button" id="atencion-respond" class="dax-action dax-action--respond">RESPONDER</button>
+                        <p class="dax-hint">También podés usar la barra espaciadora.</p>
+                    </div>
+
+                    <div id="atencion-results" hidden>
+                        <h2>Resultados de tu prueba</h2>
+                        <div class="dax-results-grid">
+                            <div><span>Aciertos</span><strong id="atencion-hits">0</strong></div>
+                            <div><span>Omisiones</span><strong id="atencion-omissions">0</strong></div>
+                            <div><span>Respuestas incorrectas</span><strong id="atencion-errors">0</strong></div>
+                            <div><span>Reacción media</span><strong id="atencion-average">—</strong></div>
+                        </div>
+                        <p id="atencion-summary"></p>
+                        <p class="dax-note">Este ejercicio es orientativo, no constituye una evaluación clínica ni determina por sí solo si estás en condiciones de conducir.</p>
+                        <button type="button" id="atencion-restart" class="dax-action">Repetir prueba</button>
+                    </div>
+                </section>
+                <!-- TEST DE REFLEJOS -->
+                <section id="reflejos-panel" class="dax-panel" hidden aria-live="polite">
+                    <div class="dax-panel__top">
+                        <span class="dax-eyebrow">CONDUCIR SEGURO · TEST DE REFLEJOS</span>
+                        <button type="button" id="reflejos-close" class="dax-close">Volver a los tests</button>
+                    </div>
+
+                    <div id="reflejos-intro">
+                        <h2>¿Qué tan rápido reaccionás?</h2>
+                        <p>
+                            Vas a ver una señal que cambiará de color. Tocá el botón únicamente
+                            cuando aparezca la señal verde. El tiempo se mide en milisegundos.
+                        </p>
+                        <ul>
+                            <li>Esperá sin tocar mientras la señal está en preparación.</li>
+                            <li>Cuando se ponga verde, respondé lo más rápido posible.</li>
+                            <li>Completá cinco rondas sin anticiparte.</li>
+                        </ul>
+                        <p class="dax-note">
+                            Hacelo sentado, con el dispositivo apoyado y en un lugar tranquilo.
+                            Nunca realices esta prueba mientras conducís. El resultado es orientativo,
+                            no una evaluación clínica ni una certificación para conducir.
+                        </p>
+                        <button type="button" id="reflejos-start" class="dax-action">Iniciar prueba</button>
+                    </div>
+
+                    <div id="reflejos-game" hidden>
+                        <div class="dax-progress">
+                            <span id="reflejos-progress">Ronda 1 de 5</span>
+                            <span id="reflejos-clock">Preparado</span>
+                        </div>
+
+                        <p id="reflejos-feedback" class="dax-feedback" aria-live="polite">
+                            Esperá a que aparezca la señal verde.
+                        </p>
+
+                        <button type="button" id="reflejos-target" class="reflejos-target reflejos-target--waiting">
+                            Esperá la señal...
+                        </button>
+
+                        <p class="dax-hint">No toques antes de que la señal cambie a verde.</p>
+                    </div>
+
+                    <div id="reflejos-results" hidden>
+                        <h2>Resultados de tu prueba</h2>
+                        <div class="dax-results-grid">
+                            <div><span>Reacción media</span><strong id="reflejos-average">—</strong></div>
+                            <div><span>Mejor tiempo</span><strong id="reflejos-best">—</strong></div>
+                            <div><span>Aciertos verdes</span><strong id="reflejos-rounds">0</strong></div>
+                            <div><span>Anticipaciones</span><strong id="reflejos-early">0</strong></div>
+                        </div>
+                        <p id="reflejos-summary"></p>
+                        <p class="dax-note">
+                            El resultado depende, entre otros factores, del dispositivo, la pantalla
+                            y las condiciones del momento. No determina por sí solo tu aptitud para
+                            conducir ni garantiza que estés alerta.
+                        </p>
+                        <button type="button" id="reflejos-restart" class="dax-action">Repetir prueba</button>
+                        <button type="button" id="reflejos-back" class="dax-close">Volver a los tests</button>
+                    </div>
+                </section>
                 <!-- TESTS -->
+                <section id="fatiga-panel" class="fatiga-panel" hidden aria-live="polite">
+    <div class="fatiga-panel__top">
+        <div>
+            <span class="fatiga-eyebrow">VIGILANCIA Y SOMNOLENCIA</span>
+            <h2>Test de Fatiga</h2>
+        </div>
+        <button type="button" id="fatiga-close" class="btn btn--secondary">Cerrar</button>
+    </div>
+
+    <div id="fatiga-intro" class="fatiga-card">
+        <div class="fatiga-intro__icon" aria-hidden="true">☾</div>
+        <h3>Simulación de conducción monótona</h3>
+        <p>Durante 3 minutos vas a observar una ruta simulada. En determinados momentos aparecerán situaciones que requieren atención.</p>
+
+        <div class="fatiga-instructions">
+            <div><span>01</span><p>Observá la ruta y mantené la atención.</p></div>
+            <div><span>02</span><p>Presioná el botón solo cuando aparezca una señal de advertencia.</p></div>
+            <div><span>03</span><p>Al finalizar, compará cómo percibías tu nivel de somnolencia al comienzo y al final.</p></div>
+        </div>
+
+        <label class="fatiga-field" for="fatiga-start-alertness">
+            ¿Cómo te sentís ahora?
+            <span>Elegí tu nivel de somnolencia antes de empezar.</span>
+        </label>
+        <select id="fatiga-start-alertness" class="fatiga-select"><option value="">Seleccioná una opción</option>
+<option value="1">Nada cansado/a</option>
+<option value="2">Algo cansado/a</option>
+<option value="3">Muy cansado/a</option></select>
+        <p id="fatiga-start-error" class="fatiga-error" role="alert" hidden>Elegí tu nivel de somnolencia para comenzar.</p>
+
+        <p class="fatiga-notice">Este ejercicio es educativo y no diagnostica fatiga ni determina aptitud para conducir. Si sentís sueño al volante, no continúes conduciendo: detenete en un lugar seguro y descansá.</p>
+        <button type="button" id="fatiga-start" class="btn btn--primary btn--full">Comenzar simulación</button>
+    </div>
+
+    <div id="fatiga-game" class="fatiga-card" hidden>
+        <div class="fatiga-game__meta">
+            <div>
+                <span class="fatiga-meta-label">SIMULACIÓN EN CURSO</span>
+                <strong id="fatiga-progress">Observación de ruta</strong>
+            </div>
+            <strong id="fatiga-clock">3:00</strong>
+        </div>
+
+        <div class="fatiga-road" aria-label="Escena de carretera simulada">
+            <div class="fatiga-road__sky"></div>
+            <div class="fatiga-road__hills"></div>
+            <div class="fatiga-road__surface">
+                <div class="fatiga-road__lane"></div>
+            </div>
+            <div class="fatiga-road__car" aria-hidden="true">🚗</div>
+            <div id="fatiga-event" class="fatiga-road__event" hidden role="img" aria-label="Senal de transito">
+    <div id="fatiga-event-sign" class="fatiga-sign fatiga-sign--warning" aria-hidden="true">
+        <span id="fatiga-event-icon">!</span>
+    </div>
+</div>
+            <span class="fatiga-road__caption">Ruta simulada · entorno virtual</span>
+        </div>
+
+        <p id="fatiga-feedback" class="fatiga-feedback" role="status">Observá el entorno y esperá una señal.</p>
+        <button type="button" id="fatiga-respond" class="btn btn--primary btn--full">Registrar señal</button>
+        <p class="fatiga-hint">No presiones si no hay una señal visible.</p>
+    </div>
+
+    <div id="fatiga-results" class="fatiga-card" hidden>
+        <div class="fatiga-results__heading">
+            <span class="fatiga-eyebrow">FIN DE LA SIMULACIÓN</span>
+            <h3>Tu resumen de atención</h3>
+            <p>Registrá cómo te sentís ahora para comparar tu percepción inicial y final.</p>
+        </div>
+
+        <div id="fatiga-final-checkin">
+            <label class="fatiga-field" for="fatiga-final-alertness">
+                ¿Qué nivel de somnolencia sentís ahora?
+                <span>Respondé según cómo te sentís en este momento.</span>
+            </label>
+            <select id="fatiga-final-alertness" class="fatiga-select"><option value="">Seleccioná una opción</option>
+<option value="1">Nada cansado/a</option>
+<option value="2">Algo cansado/a</option>
+<option value="3">Muy cansado/a</option></select>
+            <p id="fatiga-final-error" class="fatiga-error" role="alert" hidden>Elegí tu nivel de somnolencia para ver el resumen.</p>
+            <button type="button" id="fatiga-final-submit" class="btn btn--primary btn--full">Ver resultados</button>
+        </div>
+
+        <div id="fatiga-final-results" hidden>
+            <div class="fatiga-alertness-comparison">
+                <div><span>Al comenzar</span><strong id="fatiga-start-result">—</strong></div>
+                <div><span>Al finalizar</span><strong id="fatiga-final-result">—</strong></div>
+                <p id="fatiga-alertness-change"></p>
+            </div>
+
+            <div class="fatiga-results-grid">
+                <div><span>Señales detectadas</span><strong id="fatiga-hits">0</strong></div>
+                <div><span>Señales omitidas</span><strong id="fatiga-omissions">0</strong></div>
+                <div><span>Respuestas anticipadas</span><strong id="fatiga-errors">0</strong></div>
+                <div><span>Reacción media</span><strong id="fatiga-average">—</strong></div>
+                <div><span>Reacción inicial</span><strong id="fatiga-first">—</strong></div>
+                <div><span>Reacción final</span><strong id="fatiga-last">—</strong></div>
+            </div>
+
+            <p id="fatiga-summary" class="fatiga-notice" role="status"></p>
+            <p class="fatiga-disclaimer">Esta simulación no es una evaluación clínica validada. El resultado no permite diagnosticar fatiga ni decidir si estás en condiciones de conducir.</p>
+            <button type="button" id="fatiga-restart" class="btn btn--primary btn--full">Repetir simulación</button>
+        </div>
+
+        <button type="button" id="fatiga-back" class="btn btn--secondary btn--full">Volver a los tests</button>
+    </div>
+</section>
                 <div class="tests-grid">
 
                     <!-- DAX -->
                     <article class="test-card" data-category="atencion" data-date="2026-09-15">
 
                         <span class="test-card__status">
-                            EN PREPARACIÓN
+                            DISPONIBLE
                         
                         </span>
 
@@ -249,8 +508,8 @@
 
                         </div>
 
-                        <button class="btn btn--secondary btn--full" disabled>
-                            Próximamente
+                        <button type="button" class="btn btn--secondary btn--full" id="dax-open">
+                            Comenzar test
                             <span class="btn__arrow">→</span>
                         </button>
 
@@ -261,7 +520,7 @@
                     <article class="test-card" data-category="atencion" data-date="2025-06-10">
 
                         <span class="test-card__status">
-                            PRÓXIMAMENTE
+                            DISPONIBLE
                         </span>
 
                         <div class="test-card__header">
@@ -276,7 +535,7 @@
                                 </h3>
 
                                 <span class="test-card__category">
-                                    Próximamente disponible
+                                    Evaluación de atención
                                 </span>
                             </div>
 
@@ -291,7 +550,7 @@
 
                             <span>
                                 ◷
-                                <strong>3</strong>
+                                <strong>1:30</strong>
                                 minutos
                             </span>
 
@@ -309,7 +568,7 @@
 
                         </div>
 
-                        <button class="btn btn--secondary btn--full" disabled>
+                        <button type="button" class="btn btn--secondary btn--full" id="atencion-open">
                             Comenzar test
                             <span class="btn__arrow">→</span>
                         </button>
@@ -318,122 +577,52 @@
 
 
                     <!-- REFLEJOS -->
-                    <article class="test-card" data-category="reflejos" data-date="2026-09-20">
-
-                        <span class="test-card__status">
-                            PRÓXIMAMENTE
-                        </span>
+                    <article class="test-card" data-category="reflejos" data-date="2026-10-14">
+                        <span class="test-card__status">DISPONIBLE</span>
 
                         <div class="test-card__header">
-
                             <div class="test-card__icon">
-    <img src="image/icon/bolt-icon.svg" alt="">
-</div>
-
-                            <div>
-                                <h3 class="test-card__title">
-                                    Test de Reflejos
-                                </h3>
-
-                                <span class="test-card__category">
-                                    Tiempo de respuesta
-                                </span>
+                                <img src="image/icon/bolt-icon.svg" alt="" aria-hidden="true">
                             </div>
-
+                            <div>
+                                <h3 class="test-card__title">Test de Reflejos</h3>
+                                <span class="test-card__category">Tiempo de respuesta</span>
+                            </div>
                         </div>
 
                         <p class="test-card__description">
-                            Mide tu tiempo de reacción ante diferentes
-                            estímulos y situaciones.
+                            Medí tu tiempo de reacción ante una señal visual con cinco rondas.
                         </p>
 
                         <div class="test-card__info">
-
-                            <span>
-                                ◷
-                                minutos
-                            </span>
-
-                            <span>
-                                ◷
-                                minutos
-                            </span>
-
-                            <span>
-                                ◉
-                                Reflejos
-                                Tiempo reacción
-                            </span>
-
+                            <span>◷ <strong>1</strong> minuto aprox.</span>
+                            <span>◉ <strong>5</strong> rondas</span>
                         </div>
 
-                        <button
-                            class="btn btn--secondary btn--full"
-                            disabled
-                        >
-                            Próximamente
+                        <button type="button" class="btn btn--secondary btn--full" id="reflejos-open">
+                            Comenzar test
+                            <span class="btn__arrow">→</span>
                         </button>
-
                     </article>
 
 
                     <!-- FATIGA -->
                     <article class="test-card" data-category="alerta" data-date="2025-03-12">
-
-                        <span class="test-card__status">
-                            PRÓXIMAMENTE
-                        </span>
-
                         <div class="test-card__header">
-
-                            <div class="test-card__icon">
-    <img src="image/icon/moon-icon.svg" alt="">
-</div>
-
+                            <div class="test-card__icon"><img src="image/icon/moon-icon.svg" alt=""></div>
                             <div>
-                                <h3 class="test-card__title">
-                                    Test de Fatiga
-                                </h3>
-
-                                <span class="test-card__category">
-                                    Estado de alerta
-                                </span>
+                                <h3 class="test-card__title">Test de Fatiga</h3>
+                                <span class="test-card__category">Estado de alerta</span>
                             </div>
-
                         </div>
-
-                        <p class="test-card__description">
-                            Evalúa el nivel de fatiga y estado de alerta
-                            antes de comenzar un trayecto.
-                        </p>
-
+                        <p class="test-card__description">Ejercicio de vigilancia continua con registro de reacciones, omisiones y errores.</p>
                         <div class="test-card__info">
-
-                            <span>
-                                ◷
-                                minutos
-                            </span>
-
-                            <span>
-                                ◷
-                                minutos
-                            </span>
-
-                            <span>
-                                ◉
-                                Estado de alerta
-                                Fatiga
-                            </span>
-
+                            <span>◷ <strong>3</strong> minutos</span>
+                            <span>◉ Estado de alerta</span>
                         </div>
-
-                        <button
-                            class="btn btn--secondary btn--full"
-                            disabled
-                        >
-                            Próximamente
+                        <button type="button" class="btn btn--secondary btn--full" id="fatiga-open">
+                            Comenzar test <span class="btn__arrow">→</span>
                         </button>
-
                     </article>
 
                 </div>
@@ -513,7 +702,7 @@
 
                     </div>
 
-                    <button class="btn btn--primary">
+                    <button type="button" id="tests-cta-start" class="btn btn--primary">
                         Comenzar evaluación
                         <span class="btn__arrow">→</span>
                     </button>
@@ -607,9 +796,9 @@
       </div>
       </footer>
     <script src="js/script.js"></script>
+    <script src="js/dax.js"></script>
+    <script src="js/atencion.js"></script>
+    <script src="js/reflejos.js"></script>
+    <script src="js/fatiga.js"></script>
 </body>
 </html>
-
-
-
-

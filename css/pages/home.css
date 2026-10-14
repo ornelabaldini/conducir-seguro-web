@@ -364,3 +364,24 @@
     grid-template-columns: 1fr;
   }
 }
+/* Beneficios de inicio: dos columnas en móviles */
+@media (max-width: 600px) {
+    .checklist {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        align-items: start;
+    }
+
+    .checklist__item {
+        min-width: 0;
+        align-items: flex-start;
+        gap: 8px;
+        overflow-wrap: anywhere;
+    }
+
+    .checklist__item > span:last-child {
+        min-width: 0;
+        line-height: 1.45;
+    }
+}

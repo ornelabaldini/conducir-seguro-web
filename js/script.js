@@ -1,4 +1,4 @@
-﻿document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     console.log("Conducir Seguro cargado correctamente");
 
     const filtros = document.querySelectorAll(".tests-filter");
@@ -69,4 +69,29 @@
             ordenarTarjetas();
         });
     }
+});
+
+
+// INTEGRACION-FILTROS-TESTS-ACTIVOS
+// Al filtrar u ordenar, cerramos el test abierto para detener su ejecucion
+// y devolver el foco a la grilla antes de aplicar el cambio.
+document.addEventListener("DOMContentLoaded", () => {
+    const cerrarTestsAbiertos = () => {
+        const abiertos = [
+            ["#dax-panel", "#dax-close"],
+            ["#atencion-panel", "#atencion-close"],
+            ["#reflejos-panel", "#reflejos-close"]
+        ];
+
+        abiertos.forEach(([panelSelector, closeSelector]) => {
+            const panel = document.querySelector(panelSelector);
+            if (panel && !panel.hidden) {
+                document.querySelector(closeSelector)?.click();
+            }
+        });
+    };
+
+    document.querySelectorAll(".tests-filter, .tests-sort").forEach((control) => {
+        control.addEventListener("click", cerrarTestsAbiertos, true);
+    });
 });
