@@ -80,7 +80,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const abiertos = [
             ["#dax-panel", "#dax-close"],
             ["#atencion-panel", "#atencion-close"],
-            ["#reflejos-panel", "#reflejos-close"]
+            ["#reflejos-panel", "#reflejos-close"],
+            ["#fatiga-panel", "#fatiga-open"],
+            ["#memoria-panel", "#memoria-close"]
         ];
 
         abiertos.forEach(([panelSelector, closeSelector]) => {

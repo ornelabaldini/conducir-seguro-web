@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="css/pages/atencion.css">
     <link rel="stylesheet" href="css/pages/reflejos.css">
     <link rel="stylesheet" href="css/pages/fatiga.css">
+    <link rel="stylesheet" href="css/pages/memoria.css">
 </head>
 
 <body>
@@ -197,7 +198,55 @@
                 </div>
 
 
-                <!-- TEST DAX INTERACTIVO -->
+                                <!-- TEST DE MEMORIA -->
+                <section id="memoria-panel" class="memoria-panel" hidden aria-live="polite">
+                    <div class="memoria-panel__top">
+                        <span class="memoria-eyebrow">CONDUCIR SEGURO · TEST DE MEMORIA</span>
+                        <button type="button" id="memoria-close" class="memoria-close">Volver a los tests</button>
+                    </div>
+
+                    <div id="memoria-intro">
+                        <h2>Memoria visual</h2>
+                        <p>Vas a observar una serie de símbolos durante unos segundos. Después tendrás que reconocer cuáles aparecieron. Hacé la prueba con tranquilidad y sin distracciones.</p>
+                        <p class="memoria-note">Este ejercicio es orientativo y no constituye una evaluación clínica ni determina por sí solo si estás en condiciones de conducir.</p>
+                        <button type="button" id="memoria-start" class="memoria-action">Comenzar prueba</button>
+                    </div>
+
+                    <div id="memoria-study" hidden>
+                        <div class="memoria-progress">
+                            <span>Fase 1 de 2 · Memorización</span>
+                            <span id="memoria-countdown">Prepará tu memoria</span>
+                        </div>
+                        <p class="memoria-instruction">Memorizá estos símbolos. Desaparecerán cuando termine el tiempo.</p>
+                        <div id="memoria-study-grid" class="memoria-grid"></div>
+                    </div>
+
+                    <div id="memoria-game" hidden>
+                        <div class="memoria-progress">
+                            <span>Fase 2 de 2 · Reconocimiento</span>
+                            <span id="memoria-selection-count">0 seleccionados</span>
+                        </div>
+                        <p class="memoria-instruction">Seleccioná todos los símbolos que recordás haber visto. También habrá algunos nuevos.</p>
+                        <div id="memoria-choice-grid" class="memoria-grid memoria-grid--choices"></div>
+                        <button type="button" id="memoria-finish" class="memoria-action">Ver resultados</button>
+                        <p id="memoria-feedback" class="memoria-feedback" aria-live="polite"></p>
+                    </div>
+
+                    <div id="memoria-results" hidden>
+                        <h2>Resultados de tu prueba</h2>
+                        <div class="memoria-results-grid">
+                            <div><span>Aciertos</span><strong id="memoria-hits">0</strong></div>
+                            <div><span>Omisiones</span><strong id="memoria-omissions">0</strong></div>
+                            <div><span>Falsas alarmas</span><strong id="memoria-errors">0</strong></div>
+                            <div><span>Precisión</span><strong id="memoria-accuracy">0%</strong></div>
+                        </div>
+                        <p id="memoria-summary"></p>
+                        <p class="memoria-note">El resultado es orientativo. El cansancio, el estrés y las distracciones pueden influir en el rendimiento. Si tenés sueño o te sentís afectado, no conduzcas aunque obtengas un buen resultado.</p>
+                        <button type="button" id="memoria-restart" class="memoria-action">Repetir prueba</button>
+                    </div>
+                </section>
+                <!-- FIN TEST DE MEMORIA -->
+<!-- TEST DAX INTERACTIVO -->
                 <section id="dax-panel" class="dax-panel" hidden aria-live="polite">
                     <div class="dax-panel__top">
                         <span class="dax-eyebrow">CONDUCIR SEGURO · TEST DAX</span>
@@ -625,7 +674,28 @@
                         </button>
                     </article>
 
-                </div>
+                                    <!-- MEMORIA -->
+                    <article class="test-card" data-category="memoria" data-date="2026-10-14">
+                        <span class="test-card__status">DISPONIBLE</span>
+                        <div class="test-card__header">
+                            <div class="test-card__icon">
+                                <img src="image/icon/eye-icon.svg" alt="" aria-hidden="true">
+                            </div>
+                            <div>
+                                <h3 class="test-card__title">Test de Memoria</h3>
+                                <span class="test-card__category">Memoria visual</span>
+                            </div>
+                        </div>
+                        <p class="test-card__description">Poné a prueba tu capacidad para recordar y reconocer información visual.</p>
+                        <div class="test-card__info">
+                            <span>⏱ <strong>1</strong> minuto aprox.</span>
+                            <span>◉ Memoria visual</span>
+                        </div>
+                        <button type="button" class="btn btn--secondary btn--full" id="memoria-open">
+                            Comenzar test <span class="btn__arrow">→</span>
+                        </button>
+                    </article>
+</div>
 
 
                 <!-- BENEFICIOS -->
@@ -800,5 +870,6 @@
     <script src="js/atencion.js"></script>
     <script src="js/reflejos.js"></script>
     <script src="js/fatiga.js"></script>
+    <script src="js/memoria.js"></script>
 </body>
 </html>

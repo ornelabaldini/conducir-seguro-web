@@ -12,9 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const eventIcon = $("#fatiga-event-icon");
     const respondButton = $("#fatiga-respond");
 
-    const DURATION = 180000;
-    const EVENT_MIN = 4000;
-    const EVENT_MAX = 8000;
+    const DURATION = 30000;
+    const EVENT_MIN = 3000;
+    const EVENT_MAX = 6000;
     const EVENT_WINDOW = 2600;
 
     const EVENTS = [
