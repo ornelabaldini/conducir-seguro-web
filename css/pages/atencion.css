@@ -115,10 +115,6 @@
     justify-content: center;
 }
 
-#atencion-panel #atencion-symbol {
-    font-family: Arial, sans-serif;
-}
-
 #atencion-panel #atencion-feedback {
     overflow-wrap: anywhere;
 }

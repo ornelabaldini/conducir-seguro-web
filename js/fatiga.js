@@ -18,9 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const EVENT_WINDOW = 2600;
 
     const EVENTS = [
-        { type: "warning", icon: "!", label: "Senal triangular de advertencia" },
-        { type: "speed", icon: "60", label: "Senal circular de velocidad maxima" },
-        { type: "stop", icon: "!", label: "Senal octogonal de detencion" },
+        { type: "warning", icon: "!", label: "Señal triangular de advertencia" },
+        { type: "speed", icon: "60", label: "Señal circular de velocidad máxima" },
+        { type: "stop", icon: "!", label: "Señal octogonal de detención" },
         { type: "curve", icon: "↗", label: "Advertencia de curva" }
     ];
 
@@ -34,13 +34,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let omissions = 0;
     let errors = 0;
     let reactionTimes = [];
-    let startAlertness = null;
 
     function clearTimers() {
         if (eventTimer !== null) {
             clearTimeout(eventTimer);
             eventTimer = null;
         }
+
         if (clockTimer !== null) {
             clearInterval(clockTimer);
             clockTimer = null;
@@ -51,7 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
         running = false;
         clearTimers();
         eventActive = false;
-        roadEvent.hidden = true;
+
+        if (roadEvent) roadEvent.hidden = true;
         road?.classList.remove("is-driving");
         respondButton?.classList.remove("fatiga-btn--alert");
     }
@@ -60,20 +61,22 @@ document.addEventListener("DOMContentLoaded", () => {
         intro.hidden = false;
         game.hidden = true;
         results.hidden = true;
-        $("#fatiga-final-checkin").hidden = false;
-        $("#fatiga-final-results").hidden = true;
-        $("#fatiga-start-error").hidden = true;
-        $("#fatiga-final-error").hidden = true;
-        $("#fatiga-start-alertness").value = "";
-        $("#fatiga-final-alertness").value = "";
+
+        const finalResults = $("#fatiga-final-results");
+        if (finalResults) finalResults.hidden = true;
+
+        const comparison = $(".fatiga-alertness-comparison");
+        if (comparison) comparison.hidden = true;
     }
 
     function openPanel() {
         stopTest();
-        ["#dax-panel", "#atencion-panel", "#reflejos-panel"].forEach(selector => {
+
+        ["#dax-panel", "#atencion-panel", "#reflejos-panel", "#memoria-panel"].forEach(selector => {
             const other = $(selector);
             if (other) other.hidden = true;
         });
+
         resetView();
         panel.hidden = false;
         panel.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -96,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!running) return;
 
         const remaining = Math.max(0, Math.ceil((deadline - performance.now()) / 1000));
+
         $("#fatiga-clock").textContent =
             `${Math.floor(remaining / 60)}:${String(remaining % 60).padStart(2, "0")}`;
 
@@ -121,11 +125,15 @@ document.addEventListener("DOMContentLoaded", () => {
         eventShownAt = performance.now();
 
         const event = EVENTS[Math.floor(Math.random() * EVENTS.length)];
+
         eventSign.className = `fatiga-sign fatiga-sign--${event.type}`;
         eventIcon.textContent = event.icon;
         roadEvent.setAttribute("aria-label", event.label);
         roadEvent.hidden = false;
-        $("#fatiga-feedback").textContent = "Senal visible: registrala antes de que desaparezca.";
+
+        $("#fatiga-feedback").textContent =
+            "Señal visible: registrala antes de que desaparezca.";
+
         respondButton.classList.add("fatiga-btn--alert");
 
         eventTimer = window.setTimeout(() => {
@@ -135,7 +143,10 @@ document.addEventListener("DOMContentLoaded", () => {
             eventActive = false;
             roadEvent.hidden = true;
             respondButton.classList.remove("fatiga-btn--alert");
-            $("#fatiga-feedback").textContent = "Senal no registrada. Segui observando la ruta.";
+
+            $("#fatiga-feedback").textContent =
+                "Señal no registrada. Seguí observando la ruta.";
+
             scheduleEvent();
         }, EVENT_WINDOW);
     }
@@ -145,8 +156,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!eventActive) {
             errors++;
+
             $("#fatiga-feedback").textContent =
-                "No hay una senal activa. Espera a que aparezca la proxima.";
+                "No hay una señal activa. Esperá a que aparezca la próxima.";
+
             return;
         }
 
@@ -161,38 +174,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
         roadEvent.hidden = true;
         respondButton.classList.remove("fatiga-btn--alert");
-        $("#fatiga-feedback").textContent = "Senal registrada. Manten la atencion en la ruta.";
+
+        $("#fatiga-feedback").textContent =
+            "Señal registrada. Mantené la atención en la ruta.";
+
         scheduleEvent();
     }
 
     function startTest() {
-        const rating = $("#fatiga-start-alertness").value;
-
-        if (!rating) {
-            $("#fatiga-start-error").hidden = false;
-            $("#fatiga-start-alertness").focus();
-            return;
-        }
-
         stopTest();
+
         hits = 0;
         omissions = 0;
         errors = 0;
         reactionTimes = [];
-        startAlertness = Number(rating);
+
         running = true;
         deadline = performance.now() + DURATION;
 
         intro.hidden = true;
         results.hidden = true;
         game.hidden = false;
+
+        const finalResults = $("#fatiga-final-results");
+        if (finalResults) finalResults.hidden = true;
+
+        const comparison = $(".fatiga-alertness-comparison");
+        if (comparison) comparison.hidden = true;
+
         roadEvent.hidden = true;
         road?.classList.add("is-driving");
-        $("#fatiga-progress").textContent = "Observacion continua";
-        $("#fatiga-feedback").textContent = "Observa el entorno y espera una senal.";
+
+        $("#fatiga-progress").textContent = "Observación continua";
+        $("#fatiga-feedback").textContent =
+            "Observá el entorno y esperá una señal.";
+
         respondButton.classList.remove("fatiga-btn--alert");
 
         updateClock();
+
         if (running) {
             clockTimer = window.setInterval(updateClock, 250);
             scheduleEvent();
@@ -217,62 +237,58 @@ document.addEventListener("DOMContentLoaded", () => {
         if (eventActive) omissions++;
 
         stopTest();
+
         game.hidden = true;
         results.hidden = false;
-        $("#fatiga-final-checkin").hidden = false;
-        $("#fatiga-final-results").hidden = true;
-        $("#fatiga-final-alertness").value = "";
-        $("#fatiga-final-error").hidden = true;
+
+        showResults();
+
         results.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     function showResults() {
-        const finalValue = $("#fatiga-final-alertness").value;
-
-        if (!finalValue) {
-            $("#fatiga-final-error").hidden = false;
-            $("#fatiga-final-alertness").focus();
-            return;
-        }
-
-        const finalAlertness = Number(finalValue);
         const average = mean(reactionTimes);
         const midpoint = Math.ceil(reactionTimes.length / 2);
         const first = mean(reactionTimes.slice(0, midpoint));
         const last = mean(reactionTimes.slice(midpoint));
-        const delta = finalAlertness - startAlertness;
 
-        $("#fatiga-start-result").textContent = `${startAlertness} / 3`;
-        $("#fatiga-final-result").textContent = `${finalAlertness} / 3`;
+        const comparison = $(".fatiga-alertness-comparison");
+        if (comparison) comparison.hidden = true;
+
         $("#fatiga-hits").textContent = hits;
         $("#fatiga-omissions").textContent = omissions;
         $("#fatiga-errors").textContent = errors;
-        $("#fatiga-average").textContent = average === null ? "Sin registros" : `${average} ms`;
-        $("#fatiga-first").textContent = first === null ? "Sin registros" : `${first} ms`;
-        $("#fatiga-last").textContent = last === null ? "Sin registros" : `${last} ms`;
 
-        let comparison = "Tu percepcion de somnolencia se mantuvo igual.";
-        if (delta > 0) comparison = `Tu percepcion de somnolencia aumento ${delta} punto(s).`;
-        if (delta < 0) comparison = `Tu percepcion de somnolencia disminuyo ${Math.abs(delta)} punto(s).`;
-        $("#fatiga-alertness-change").textContent = comparison;
+        $("#fatiga-average").textContent =
+            average === null ? "Sin registros" : `${average} ms`;
+
+        $("#fatiga-first").textContent =
+            first === null ? "Sin registros" : `${first} ms`;
+
+        $("#fatiga-last").textContent =
+            last === null ? "Sin registros" : `${last} ms`;
 
         $("#fatiga-summary").textContent =
-            `Durante la simulacion registraste ${hits} senales, omitiste ${omissions} y respondiste sin una senal activa ${errors} vez/veces. Son observaciones de una unica sesion y pueden verse influidas por multiples factores.`;
+            `Durante la simulación registraste ${hits} señales, omitiste ${omissions} y respondiste sin una señal activa ${errors} veces. Estos datos corresponden a una única sesión y pueden verse influidos por múltiples factores.`;
 
-        $("#fatiga-final-checkin").hidden = true;
-        $("#fatiga-final-results").hidden = false;
-        $("#fatiga-back").scrollIntoView({ behavior: "smooth", block: "nearest" });
+        const finalResults = $("#fatiga-final-results");
+        if (finalResults) finalResults.hidden = false;
     }
 
     $("#fatiga-start")?.addEventListener("click", startTest);
     $("#fatiga-respond")?.addEventListener("click", respond);
-    $("#fatiga-final-submit")?.addEventListener("click", showResults);
     $("#fatiga-restart")?.addEventListener("click", startTest);
 
     document.addEventListener("keydown", event => {
         if (event.code !== "Space" || !running || panel.hidden) return;
-        if (event.target instanceof HTMLElement &&
-            (event.target.closest("button") || event.target.closest("select"))) return;
+
+        if (
+            event.target instanceof HTMLElement &&
+            (event.target.closest("button") || event.target.closest("select"))
+        ) {
+            return;
+        }
+
         event.preventDefault();
         respond();
     });

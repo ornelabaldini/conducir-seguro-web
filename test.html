@@ -110,10 +110,10 @@
                     <div class="tests-hero__features">
 
                         <div class="tests-hero__feature">
-                            <span class="tests-hero__feature-icon">✓</span>
+                            <span class="tests-hero__feature-icon">◆</span>
                             <div>
-                                <strong>Evaluaciones eficientes</strong>
-                                <small>Resultados en minutos</small>
+                                <strong>El resultado es orientativo,</strong>
+                                <small>no una evaluación clínica.</small>
                             </div>
                         </div>
 
@@ -343,24 +343,22 @@
                         <h2>¿Qué tan rápido reaccionás?</h2>
                         <p>
                             Vas a ver una señal que cambiará de color. Tocá el botón únicamente
-                            cuando aparezca la señal verde. El tiempo se mide en milisegundos.
+                            cuando aparezca la señal verde. 
                         </p>
                         <ul>
                             <li>Esperá sin tocar mientras la señal está en preparación.</li>
                             <li>Cuando se ponga verde, respondé lo más rápido posible.</li>
-                            <li>Completá cinco rondas sin anticiparte.</li>
+                            <li> El resultado es orientativo, no una evaluación clínica ni una certificación para conducir.</li>
                         </ul>
                         <p class="dax-note">
-                            Hacelo sentado, con el dispositivo apoyado y en un lugar tranquilo.
-                            Nunca realices esta prueba mientras conducís. El resultado es orientativo,
-                            no una evaluación clínica ni una certificación para conducir.
+                            Nunca realices esta prueba mientras conducís.
                         </p>
                         <button type="button" id="reflejos-start" class="dax-action">Iniciar prueba</button>
                     </div>
 
                     <div id="reflejos-game" hidden>
                         <div class="dax-progress">
-                            <span id="reflejos-progress">Ronda 1 de 5</span>
+                            <span id="reflejos-progress">Se�al 1</span>
                             <span id="reflejos-clock">Preparado</span>
                         </div>
 
@@ -406,23 +404,13 @@
     <div id="fatiga-intro" class="fatiga-card">
         <div class="fatiga-intro__icon" aria-hidden="true">☾</div>
         <h3>Simulación de conducción monótona</h3>
-        <p>Durante 3 minutos vas a observar una ruta simulada. En determinados momentos aparecerán situaciones que requieren atención.</p>
+        <p>Vas a observar una ruta simulada. En determinados momentos aparecerán situaciones que requieren atención.</p>
 
         <div class="fatiga-instructions">
             <div><span>01</span><p>Observá la ruta y mantené la atención.</p></div>
             <div><span>02</span><p>Presioná el botón solo cuando aparezca una señal de advertencia.</p></div>
             <div><span>03</span><p>Al finalizar, compará cómo percibías tu nivel de somnolencia al comienzo y al final.</p></div>
         </div>
-
-        <label class="fatiga-field" for="fatiga-start-alertness">
-            ¿Cómo te sentís ahora?
-            <span>Elegí tu nivel de somnolencia antes de empezar.</span>
-        </label>
-        <select id="fatiga-start-alertness" class="fatiga-select"><option value="">Seleccioná una opción</option>
-<option value="1">Nada cansado/a</option>
-<option value="2">Algo cansado/a</option>
-<option value="3">Muy cansado/a</option></select>
-        <p id="fatiga-start-error" class="fatiga-error" role="alert" hidden>Elegí tu nivel de somnolencia para comenzar.</p>
 
         <p class="fatiga-notice">Este ejercicio es educativo y no diagnostica fatiga ni determina aptitud para conducir. Si sentís sueño al volante, no continúes conduciendo: detenete en un lugar seguro y descansá.</p>
         <button type="button" id="fatiga-start" class="btn btn--primary btn--full">Comenzar simulación</button>
@@ -461,20 +449,7 @@
         <div class="fatiga-results__heading">
             <span class="fatiga-eyebrow">FIN DE LA SIMULACIÓN</span>
             <h3>Tu resumen de atención</h3>
-            <p>Registrá cómo te sentís ahora para comparar tu percepción inicial y final.</p>
-        </div>
-
-        <div id="fatiga-final-checkin">
-            <label class="fatiga-field" for="fatiga-final-alertness">
-                ¿Qué nivel de somnolencia sentís ahora?
-                <span>Respondé según cómo te sentís en este momento.</span>
-            </label>
-            <select id="fatiga-final-alertness" class="fatiga-select"><option value="">Seleccioná una opción</option>
-<option value="1">Nada cansado/a</option>
-<option value="2">Algo cansado/a</option>
-<option value="3">Muy cansado/a</option></select>
-            <p id="fatiga-final-error" class="fatiga-error" role="alert" hidden>Elegí tu nivel de somnolencia para ver el resumen.</p>
-            <button type="button" id="fatiga-final-submit" class="btn btn--primary btn--full">Ver resultados</button>
+            <p>Estos son los resultados de tu simulación.</p>
         </div>
 
         <div id="fatiga-final-results" hidden>
@@ -640,12 +615,11 @@
                         </div>
 
                         <p class="test-card__description">
-                            Medí tu tiempo de reacción ante una señal visual con cinco rondas.
+                            Medí tu tiempo de reacción ante una señal visual.
                         </p>
 
                         <div class="test-card__info">
                             <span>◷ <strong>1</strong> minuto aprox.</span>
-                            <span>◉ <strong>5</strong> rondas</span>
                         </div>
 
                         <button type="button" class="btn btn--secondary btn--full" id="reflejos-open">
