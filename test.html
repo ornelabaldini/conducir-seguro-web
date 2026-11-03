@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,7 @@
 
     <!-- CSS reutilizado -->
     <link rel="stylesheet" href="css/base/variables.css">
+    <link rel="stylesheet" href="css/base/base.css">
     <link rel="stylesheet" href="css/components/navbar.css">
     <link rel="stylesheet" href="css/components/footer.css">
 
@@ -24,63 +25,35 @@
 
 <body>
 
-    <!-- ================= NAVBAR ================= -->
-    <header class="site-header">
-        <div class="container">
-            <nav class="navbar" aria-label="Navegación principal">
+    <!-- Header Principal -->
+      <header class="site-header">
+            <div class="container">
+                  <nav class="navbar" aria-label="Navegación principal">
+                  <a href="index.html" class="navbar__brand" aria-label="ConducirSeguros Inicio">
+                        <img src="image/logoConducir.png" alt="ConducirSeguros Logo" class="navbar__logo">
+                  </a>
 
-                <a href="index.html" class="navbar__brand">
-                    <img
-                        src="image/logoConducir.png"
-                        alt="Conducir Seguro"
-                        class="navbar__logo"
-                    >
-                </a>
+                  <button class="navbar__toggle" id="nav-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+                        ☰
+                  </button>
 
-                <button
-                    class="navbar__toggle"
-                    id="nav-toggle"
-                    aria-label="Abrir menú"
-                    aria-expanded="false"
-                >
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+                  <ul class="navbar__nav" id="nav-menu">
+                        <li><a href="index.html" class="navbar__link">Inicio</a></li>
+                        <li><a href="test.html" class="navbar__link navbar__link--active">Tests</a></li>
+                        <li><a href="about.html" class="navbar__link">Proyecto</a></li>
+                        
+                        <!-- <li><a href="team.html" class="navbar__link">Equipo</a></li>-->
+                        <li><a href="contact.html" class="navbar__link">Contacto</a></li>
+                  </ul>
 
-                <div class="navbar__nav" id="nav-menu">
-
-                    <a href="index.html" class="navbar__link">
-                        Inicio
-                    </a>
-
-                    <a href="test.html" class="navbar__link navbar__link--active">
-                        Tests
-                    </a>
-
-                    <a href="about.html" class="navbar__link">
-                        Proyecto
-                    </a>
-
-                    <a href="#" class="navbar__link">
-                        Equipo
-                    </a>
-
-                    <a href="contact.html" class="navbar__link">
-                        Contacto
-                    </a>
-
-                </div>
-
-                <div class="navbar__actions">
-                    <button class="btn-auth" id="auth-btn">
-                        Iniciar sesión
-                    </button>
-                </div>
-
-            </nav>
-        </div>
-    </header>
+                  <div class="navbar__actions">
+                        <button class="btn-auth" id="auth-btn">
+                              <span>Iniciar sesión</span>
+                        </button>
+                  </div>
+                  </nav>
+            </div>
+      </header>
 
 
     <!-- ================= MAIN ================= -->
@@ -574,8 +547,13 @@
 
                             <span>
                                 ◷
+<<<<<<< HEAD
                                 <strong>1:30</strong>
                                 minutos
+=======
+                                <strong>3</strong>
+                                segundos
+>>>>>>> origin/main
                             </span>
 
                             <span>
@@ -619,7 +597,27 @@
                         </p>
 
                         <div class="test-card__info">
+<<<<<<< HEAD
                             <span>◷ <strong>1</strong> minuto aprox.</span>
+=======
+
+                            <span>
+                                ◷
+                                segundos
+                            </span>
+
+                            <span>
+                                ◷
+                                minutos
+                            </span>
+
+                            <span>
+                                ◉
+                                Reflejos
+                                Tiempo reacción
+                            </span>
+
+>>>>>>> origin/main
                         </div>
 
                         <button type="button" class="btn btn--secondary btn--full" id="reflejos-open">
@@ -640,8 +638,28 @@
                         </div>
                         <p class="test-card__description">Ejercicio de vigilancia continua con registro de reacciones, omisiones y errores.</p>
                         <div class="test-card__info">
+<<<<<<< HEAD
                             <span>◷ <strong>3</strong> minutos</span>
                             <span>◉ Estado de alerta</span>
+=======
+
+                            <span>
+                                ◷
+                                segundos
+                            </span>
+
+                            <span>
+                                ◷
+                                minutos
+                            </span>
+
+                            <span>
+                                ◉
+                                Estado de alerta
+                                Fatiga
+                            </span>
+
+>>>>>>> origin/main
                         </div>
                         <button type="button" class="btn btn--secondary btn--full" id="fatiga-open">
                             Comenzar test <span class="btn__arrow">→</span>
@@ -694,8 +712,8 @@
                     <div class="tests-benefit">
 
                         <div class="tests-benefit__icon">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5M4 19h16" fill="none" stroke="currentColor" stroke-width="2"/><path d="m7 15 4-4 3 2 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-</div>
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5M4 19h16" fill="none" stroke="currentColor" stroke-width="2"/><path d="m7 15 4-4 3 2 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
 
                         <div>
                             <h3>Resultados claros</h3>
@@ -710,8 +728,8 @@
                     <div class="tests-benefit">
 
                         <div class="tests-benefit__icon">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m9 12-2 9 3-2 2 2 2-2 3 2-2-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-</div>
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m9 12-2 9 3-2 2 2 2-2 3 2-2-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+                        </div>
 
                         <div>
                             <h3>Tests validados</h3>
@@ -760,8 +778,12 @@
 
 
     <!-- ================= FOOTER ================= -->
+<<<<<<< HEAD
    
       <footer class="site-footer">
+=======
+    <footer class="site-footer">
+>>>>>>> origin/main
       <div class="container">
             <div class="footer__grid">
                   
@@ -839,11 +861,18 @@
             </div>
       </div>
       </footer>
+<<<<<<< HEAD
     <script src="js/script.js"></script>
     <script src="js/dax.js"></script>
     <script src="js/atencion.js"></script>
     <script src="js/reflejos.js"></script>
     <script src="js/fatiga.js"></script>
     <script src="js/memoria.js"></script>
+=======
+
+
+    <script type="module" src="js/script.js"></script>
+
+>>>>>>> origin/main
 </body>
 </html>

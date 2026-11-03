@@ -63,12 +63,7 @@ conducir-seguro-web/
 ├── css/
 ├── js/
 ├── assets/
-├── database/
 ├── README.md
-└── ...
-```
-
-La estructura podrá ampliarse a medida que se incorpore el backend y la conexión con la base de datos.
 
 ---
 
