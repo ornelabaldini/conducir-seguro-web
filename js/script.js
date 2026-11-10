@@ -71,7 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-
 // INTEGRACION-FILTROS-TESTS-ACTIVOS
 // Al filtrar u ordenar, cerramos el test abierto para detener su ejecucion
 // y devolver el foco a la grilla antes de aplicar el cambio.
@@ -95,5 +94,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll(".tests-filter, .tests-sort").forEach((control) => {
         control.addEventListener("click", cerrarTestsAbiertos, true);
+    });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const botonMenu = document.getElementById("nav-toggle");
+    const menu = document.getElementById("nav-menu");
+
+    if (!botonMenu || !menu) return;
+
+    botonMenu.addEventListener("click", () => {
+        const abierto = menu.classList.toggle("navbar__nav--open");
+
+        botonMenu.setAttribute("aria-expanded", String(abierto));
+        botonMenu.setAttribute(
+            "aria-label",
+            abierto ? "Cerrar menú de navegación" : "Abrir menú de navegación"
+        );
+    });
+
+    menu.querySelectorAll(".navbar__link").forEach((enlace) => {
+        enlace.addEventListener("click", () => {
+            menu.classList.remove("navbar__nav--open");
+            botonMenu.setAttribute("aria-expanded", "false");
+            botonMenu.setAttribute("aria-label", "Abrir menú de navegación");
+        });
     });
 });

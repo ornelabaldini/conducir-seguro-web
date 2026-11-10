@@ -163,6 +163,12 @@
   justify-content: center;
   margin-bottom: 1.25rem;
 }
+.test-card__icon img {
+  width: 58px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+}
 
 .test-card__title {
   font-size: 1.15rem;
