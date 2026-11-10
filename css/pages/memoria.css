@@ -55,11 +55,31 @@
     align-items: center;
     justify-content: center;
     min-height: 82px;
-    border: 1px solid rgba(143,220,255,.3);
+    border: 2px solid rgba(143,220,255,.3);
     border-radius: 12px;
     background: rgba(255,255,255,.08);
     color: #fff;
     font-size: clamp(30px, 5vw, 42px);
+}
+
+.memoria-block {
+    width: 100%;
+    min-height: 100px;
+    padding: 0;
+    cursor: pointer;
+    appearance: none;
+    transition: background .15s, border-color .15s, box-shadow .15s;
+}
+
+.memoria-block.is-active {
+    background: #20bfff;
+    border-color: #fff;
+    box-shadow: 0 0 18px rgba(32,191,255,.7);
+}
+
+.memoria-block:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
 }
 .memoria-choice {
     width: 100%;

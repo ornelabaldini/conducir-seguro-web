@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
     const $ = (selector) => document.querySelector(selector);
     const panel = $("#memoria-panel");
@@ -11,48 +12,66 @@ document.addEventListener("DOMContentLoaded", () => {
     const choiceGrid = $("#memoria-choice-grid");
     const countdown = $("#memoria-countdown");
     const selectionCount = $("#memoria-selection-count");
-    const finishButton = $("#memoria-finish");
     const feedback = $("#memoria-feedback");
 
-    const SYMBOLS = ["★", "◆", "●", "▲", "♥", "☀", "☂", "♫", "✿", "☕", "⚽", "✈"];
-    const STUDY_COUNT = 6;
-    const STUDY_SECONDS = 12;
+    const BLOCK_COUNT = 9;
+    const MIN_SPAN = 2;
+    const MAX_SPAN = 8;
+    const TRIALS_PER_LEVEL = 2;
+    const FLASH_TIME = 700;
+    const PAUSE_TIME = 350;
+    const FEEDBACK_TIME = 1200;
 
-    let targets = [];
-    let choices = [];
-    let selected = new Set();
+    let sequence = [];
+    let userSequence = [];
+    let level = MIN_SPAN;
+    let attempts = 0;
+    let levelAttempts = 0;
+    let levelSuccesses = 0;
+    let correctSequences = 0;
+    let failedSequences = 0;
+    let maxSpan = 0;
     let timer = null;
     let running = false;
+    let acceptingInput = false;
 
-    function stopTimer() {
+    function clearTimer() {
         if (timer !== null) {
-            clearInterval(timer);
+            clearTimeout(timer);
             timer = null;
         }
-        running = false;
     }
 
-    function shuffle(items) {
-        const result = [...items];
-        for (let i = result.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [result[i], result[j]] = [result[j], result[i]];
-        }
-        return result;
+    function stopTest() {
+        clearTimer();
+        running = false;
+        acceptingInput = false;
     }
 
     function resetPanel() {
-        stopTimer();
+        stopTest();
+
         intro.hidden = false;
         study.hidden = true;
         game.hidden = true;
         results.hidden = true;
+
         studyGrid.replaceChildren();
         choiceGrid.replaceChildren();
+
         feedback.textContent = "";
-        selected.clear();
-        targets = [];
-        choices = [];
+        countdown.textContent = "Prepará tu atención";
+        selectionCount.textContent = "Secuencia: 0";
+
+        sequence = [];
+        userSequence = [];
+        level = MIN_SPAN;
+        attempts = 0;
+        levelAttempts = 0;
+        levelSuccesses = 0;
+        correctSequences = 0;
+        failedSequences = 0;
+        maxSpan = 0;
     }
 
     function openPanel() {
@@ -61,133 +80,201 @@ document.addEventListener("DOMContentLoaded", () => {
         panel.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
+    function createBoard(container, interactive) {
+        container.replaceChildren();
+
+        for (let index = 0; index < BLOCK_COUNT; index++) {
+            const block = document.createElement(interactive ? "button" : "div");
+
+            block.className = "memoria-symbol memoria-block";
+            block.dataset.index = index;
+            block.setAttribute("aria-label", "Bloque " + (index + 1));
+
+            if (interactive) {
+                block.type = "button";
+                block.addEventListener("click", () => selectBlock(index));
+            }
+
+            container.appendChild(block);
+        }
+    }
+
+    function showBlock(container, index, active) {
+        const block = container.children[index];
+        if (block) {
+            block.classList.toggle("is-active", active);
+        }
+    }
+
+    function generateSequence(length) {
+        const values = Array.from(
+            { length: BLOCK_COUNT },
+            (_, index) => index
+        );
+
+        for (let i = values.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [values[i], values[j]] = [values[j], values[i]];
+        }
+
+        return values.slice(0, length);
+    }
+
+    function startTest() {
+        resetPanel();
+
+        intro.hidden = true;
+        study.hidden = false;
+        running = true;
+
+        createBoard(studyGrid, false);
+        createBoard(choiceGrid, true);
+
+        startLevel();
+    }
+
+    function startLevel() {
+        if (!running) return;
+
+        sequence = generateSequence(level);
+        userSequence = [];
+        acceptingInput = false;
+
+        study.hidden = false;
+        game.hidden = true;
+
+        countdown.textContent = "Secuencia de " + level + " bloques";
+        feedback.textContent = "";
+        selectionCount.textContent = "Secuencia: 0 de " + level;
+
+        let position = 0;
+
+        function flashNext() {
+            if (!running) return;
+
+            if (position >= sequence.length) {
+                timer = setTimeout(() => {
+                    if (!running) return;
+
+                    study.hidden = true;
+                    game.hidden = false;
+                    acceptingInput = true;
+                    feedback.textContent = "Reproducí la secuencia en el mismo orden.";
+                }, PAUSE_TIME);
+
+                return;
+            }
+
+            const index = sequence[position];
+            showBlock(studyGrid, index, true);
+
+            timer = setTimeout(() => {
+                if (!running) return;
+
+                showBlock(studyGrid, index, false);
+                position++;
+
+                timer = setTimeout(flashNext, PAUSE_TIME);
+            }, FLASH_TIME);
+        }
+
+        flashNext();
+    }
+
+    function selectBlock(index) {
+        if (!running || !acceptingInput) return;
+
+        const expected = sequence[userSequence.length];
+
+        userSequence.push(index);
+        selectionCount.textContent =
+            "Secuencia: " + userSequence.length + " de " + level;
+
+        if (index !== expected) {
+            finishAttempt(false);
+            return;
+        }
+
+        showBlock(choiceGrid, index, true);
+
+        if (userSequence.length === sequence.length) {
+            finishAttempt(true);
+        }
+    }
+
+    function finishAttempt(success) {
+        acceptingInput = false;
+        attempts++;
+        levelAttempts++;
+
+        if (success) {
+            correctSequences++;
+            levelSuccesses++;
+            maxSpan = Math.max(maxSpan, level);
+            feedback.textContent = "¡Correcto! Recordaste toda la secuencia.";
+        } else {
+            failedSequences++;
+            feedback.textContent = "La secuencia no fue correcta.";
+        }
+
+        timer = setTimeout(() => {
+            if (!running) return;
+
+            choiceGrid.querySelectorAll(".memoria-block").forEach((block) => {
+                block.classList.remove("is-active");
+            });
+
+            if (levelAttempts < TRIALS_PER_LEVEL) {
+                startLevel();
+                return;
+            }
+
+            if (levelSuccesses === 0) {
+                showResults();
+                return;
+            }
+
+            level++;
+            levelAttempts = 0;
+            levelSuccesses = 0;
+
+            if (level > MAX_SPAN) {
+                showResults();
+            } else {
+                startLevel();
+            }
+        }, FEEDBACK_TIME);
+    }
+
+    function showResults() {
+        if (!running) return;
+
+        stopTest();
+
+        $("#memoria-hits").textContent = correctSequences;
+        $("#memoria-omissions").textContent = failedSequences;
+        $("#memoria-errors").textContent = attempts;
+        $("#memoria-accuracy").textContent = maxSpan + " bloques";
+
+        $("#memoria-summary").textContent =
+            "Tu secuencia más larga reproducida correctamente fue de " +
+            maxSpan +
+            " bloques. Este resultado describe únicamente tu rendimiento en este ejercicio.";
+
+        study.hidden = true;
+        game.hidden = true;
+        results.hidden = false;
+    }
+
     $("#memoria-open")?.addEventListener("click", openPanel);
+
     $("#memoria-close")?.addEventListener("click", () => {
         resetPanel();
         panel.hidden = true;
     });
 
-    function renderStudy() {
-        studyGrid.replaceChildren();
-        targets.forEach((symbol) => {
-            const item = document.createElement("div");
-            item.className = "memoria-symbol";
-            item.textContent = symbol;
-            item.setAttribute("aria-label", "Símbolo para memorizar");
-            studyGrid.appendChild(item);
-        });
-    }
-
-    function startTest() {
-        resetPanel();
-        intro.hidden = true;
-        study.hidden = false;
-        running = true;
-
-        targets = shuffle(SYMBOLS).slice(0, STUDY_COUNT);
-        renderStudy();
-
-        let remaining = STUDY_SECONDS;
-        countdown.textContent = remaining + " segundos";
-
-        timer = setInterval(() => {
-            remaining -= 1;
-            countdown.textContent = remaining + " segundos";
-
-            if (remaining <= 0) {
-                stopTimer();
-                study.hidden = true;
-                startRecognition();
-            }
-        }, 1000);
-    }
-
-    function startRecognition() {
-        game.hidden = false;
-        const distractors = shuffle(SYMBOLS.filter((symbol) => !targets.includes(symbol))).slice(0, 6);
-        choices = shuffle([
-            ...targets.map((symbol) => ({ symbol, target: true })),
-            ...distractors.map((symbol) => ({ symbol, target: false }))
-        ]);
-
-        choiceGrid.replaceChildren();
-
-        choices.forEach((choice, index) => {
-            const button = document.createElement("button");
-            button.type = "button";
-            button.className = "memoria-symbol memoria-choice";
-            button.textContent = choice.symbol;
-            button.setAttribute("aria-pressed", "false");
-            button.setAttribute("aria-label", "Símbolo " + (index + 1));
-
-            button.addEventListener("click", () => {
-                if (!running) return;
-
-                if (selected.has(index)) {
-                    selected.delete(index);
-                    button.classList.remove("is-selected");
-                    button.setAttribute("aria-pressed", "false");
-                } else {
-                    selected.add(index);
-                    button.classList.add("is-selected");
-                    button.setAttribute("aria-pressed", "true");
-                }
-
-                selectionCount.textContent = selected.size + " seleccionados";
-            });
-
-            choiceGrid.appendChild(button);
-        });
-
-        selected.clear();
-        selectionCount.textContent = "0 seleccionados";
-        running = true;
-    }
-
-    function showResults() {
-        if (!running) return;
-        running = false;
-
-        let hits = 0;
-        let omissions = 0;
-        let errors = 0;
-
-        choices.forEach((choice, index) => {
-            const button = choiceGrid.children[index];
-            button.disabled = true;
-
-            if (choice.target && selected.has(index)) {
-                hits++;
-                button.classList.add("is-correct");
-            } else if (choice.target && !selected.has(index)) {
-                omissions++;
-                button.classList.add("is-missed");
-            } else if (!choice.target && selected.has(index)) {
-                errors++;
-                button.classList.add("is-error");
-            }
-        });
-
-        const accuracy = Math.round((hits / STUDY_COUNT) * 100);
-
-        $("#memoria-hits").textContent = hits;
-        $("#memoria-omissions").textContent = omissions;
-        $("#memoria-errors").textContent = errors;
-        $("#memoria-accuracy").textContent = accuracy + "%";
-
-        $("#memoria-summary").textContent =
-            hits === STUDY_COUNT && errors === 0
-                ? "¡Excelente! Reconociste todos los símbolos sin marcar distractores."
-                : "Reconociste " + hits + " de " + STUDY_COUNT +
-                  " símbolos. Podés repetir la prueba para practicar.";
-
-        game.hidden = true;
-        results.hidden = false;
-    }
-
     $("#memoria-start")?.addEventListener("click", startTest);
-    finishButton?.addEventListener("click", showResults);
     $("#memoria-restart")?.addEventListener("click", startTest);
 
-    window.addEventListener("pagehide", stopTimer);
+    window.addEventListener("pagehide", stopTest);
 });
