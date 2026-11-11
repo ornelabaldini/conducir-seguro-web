@@ -223,6 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
         results.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
+        // Calcula los resultados y actualiza la tarjeta principal de Fatiga.
     function showResults() {
         const midpoint = Math.ceil(reactionTimes.length / 2);
         const average = mean(reactionTimes);
@@ -241,6 +242,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
         $("#fatiga-last").textContent =
             last === null ? "Sin registros" : `${last} ms`;
+
+        // Configura la tarjeta compartida con el tiempo medio de reacción.
+        const resultCard = $("#fatiga-result-card");
+
+        if (resultCard) {
+            resultCard.hidden = false;
+            resultCard.dataset.status = "azul";
+
+            const eyebrow = resultCard.querySelector(".result-card__eyebrow");
+            const status = resultCard.querySelector(".result-card__status");
+            const description = resultCard.querySelector(".result-card__description");
+
+            if (eyebrow) eyebrow.textContent = "RESULTADO DE LA PRUEBA";
+            if (status) status.textContent = "Tiempo de reacción";
+            if (description) {
+                description.textContent = "Promedio de tus respuestas registradas";
+            }
+        }
 
         $("#fatiga-summary").textContent =
             `Registraste ${hits} respuestas, ${omissions} omisiones y ${errors} respuestas anticipadas. Los tiempos corresponden únicamente a esta sesión y no permiten diagnosticar fatiga.`;

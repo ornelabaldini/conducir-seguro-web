@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const clock = $("#atencion-clock");
     const respondButton = $("#atencion-respond");
 
+    // Configuración general de las etapas y presentación de estímulos.
     const PRACTICE_PER_DIGIT = 1;
     const TEST_PER_DIGIT = 4;
     const DIGIT_TIME = 700;
@@ -20,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const NO_GO_DIGIT = 3;
     const FONT_SIZES = [8, 10, 12, 14, 16];
 
+    // Variables que conservan el estado de la prueba durante su ejecución.
     let sequence = [];
     let index = 0;
     let responded = false;
@@ -34,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let running = false;
     let practice = false;
 
+    // Detiene la prueba y cancela el temporizador pendiente.
     function stopTest() {
         running = false;
 
@@ -43,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Mezcla los estímulos para evitar que aparezcan siempre en el mismo orden.
     function shuffle(items) {
         const result = [...items];
 
@@ -54,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return result;
     }
 
+    // Genera los números del 1 al 9 y asigna un tamaño aleatorio a cada uno.
     function createSequence(repetitions) {
         const digits = [];
 
@@ -69,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return shuffle(digits);
     }
 
+    // Abre el panel de Atención y oculta los demás estados de esta prueba.
     function openPanel() {
         stopTest();
 
@@ -83,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
         panel.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
+    // Reinicia los resultados y comienza con una etapa breve de práctica.
     function startTest() {
         stopTest();
 
@@ -118,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 3000);
     }
 
+    // Prepara la prueba principal y reinicia los contadores para excluir la práctica.
     function startMainTest() {
         practice = false;
         sequence = createSequence(TEST_PER_DIGIT);
@@ -131,6 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
         showStimulus();
     }
 
+    // Presenta cada número, habilita la respuesta y controla su tiempo de exposición.
     function showStimulus() {
         if (!running) return;
 
@@ -145,6 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const trial = sequence[index];
 
+        // El número 3 es No-Go: se debe evitar responder cuando aparece.
         isNoGo = trial.digit === NO_GO_DIGIT;
         responded = false;
         responseTime = null;
@@ -167,21 +177,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
         respondButton.disabled = false;
 
+        // Al finalizar la exposición, se oculta el número y comienza la máscara.
         timer = setTimeout(() => {
             if (!running) return;
 
             symbol.textContent = "";
+            respondButton.disabled = true;
 
             timer = setTimeout(completeTrial, MASK_TIME);
         }, DIGIT_TIME);
     }
 
+    // Registra una única respuesta por estímulo y mide el tiempo desde su aparición.
     function respond() {
-        if (!running || responded) return;
+        if (!running || responded || respondButton.disabled) return;
 
         responded = true;
         responseTime = performance.now() - shownAt;
 
+        // Efecto visual breve para confirmar que se registró la respuesta.
         respondButton.style.transition = "transform 120ms ease, filter 120ms ease";
         respondButton.style.transform = "scale(0.94)";
         respondButton.style.filter = "brightness(0.75)";
@@ -192,6 +206,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 180);
     }
 
+    // Clasifica la respuesta al terminar cada estímulo de la prueba principal.
+    function completeTrial() {
+        if (!running) return;
+
+        if (!practice) {
+            if (isNoGo) {
+                // Responder al número 3 cuenta como una respuesta incorrecta.
+                if (responded) errors++;
+            } else if (responded) {
+                // Una respuesta a otro número cuenta como acierto.
+                hits++;
+                reactionTimes.push(responseTime);
+            } else {
+                // No responder a un número distinto del 3 cuenta como omisión.
+                omissions++;
+            }
+        }
+
+        index++;
+        showStimulus();
+    }
+
+    // Finaliza la prueba, calcula el promedio y presenta los resultados obtenidos.
+    // Finaliza la prueba, calcula los resultados y actualiza la tarjeta principal.
     function finishTest() {
         if (!running) return;
 
@@ -205,18 +243,46 @@ document.addEventListener("DOMContentLoaded", () => {
         $("#atencion-errors").textContent = errors;
 
         const average = reactionTimes.length
-            ? `${Math.round(
+            ? Math.round(
                 reactionTimes.reduce((sum, value) => sum + value, 0) /
                 reactionTimes.length
-            )} ms`
+            )
+            : null;
+
+        // Configura la tarjeta compartida con el resultado de Atención.
+        const resultCard = $("#atencion-result-card");
+
+        if (resultCard) {
+            resultCard.hidden = false;
+            resultCard.dataset.status = "azul";
+
+            const eyebrow = resultCard.querySelector(".result-card__eyebrow");
+            const status = resultCard.querySelector(".result-card__status");
+            const description = resultCard.querySelector(".result-card__description");
+
+            if (eyebrow) eyebrow.textContent = "RESULTADO DE LA PRUEBA";
+            if (status) status.textContent = "Tiempo de reacción";
+            if (description) {
+                description.textContent = "Promedio de tus respuestas correctas";
+            }
+        }
+
+        $("#atencion-average").textContent = average !== null
+            ? `${average} ms`
             : "Sin registros";
 
-        $("#atencion-average").textContent = average;
-
+        // Explica cada métrica para que los resultados sean comprensibles.
         $("#atencion-summary").textContent =
-            "Revisá tus aciertos, omisiones, respuestas incorrectas y tiempo medio de reacción. El resultado es orientativo y no determina por sí solo si estás en condiciones de conducir.";
+            `Aciertos: ${hits} respuestas correctas a números distintos del 3.\n` +
+            `Omisiones: ${omissions} veces que no se respondió a un número que requería respuesta.\n` +
+            `Respuestas incorrectas: ${errors} respuestas al número 3, ante el que había que inhibir la respuesta.\n` +
+            `Tiempo medio de reacción: ${average !== null ? `${average} ms` : "sin registros"}.\n\n` +
+            "Este ejercicio es orientativo y no determina por sí solo si estás en condiciones de conducir.";
+
+        results.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
+    // Conecta los botones con las acciones correspondientes del test.
     $("#atencion-open")?.addEventListener("click", openPanel);
 
     $("#tests-cta-start")?.addEventListener("click", () => {
@@ -232,6 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $("#atencion-restart")?.addEventListener("click", startTest);
     respondButton?.addEventListener("click", respond);
 
+    // Permite responder con la barra espaciadora sin interferir con los botones.
     document.addEventListener("keydown", (event) => {
         if (event.code !== "Space" || !running || panel.hidden) return;
 
@@ -242,5 +309,6 @@ document.addEventListener("DOMContentLoaded", () => {
         respond();
     });
 
+    // Cancela cualquier temporizador si el usuario abandona la página.
     window.addEventListener("pagehide", stopTest);
 });

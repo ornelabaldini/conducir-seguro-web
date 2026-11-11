@@ -83,6 +83,7 @@
         scrollToCenter(intro);
     };
 
+    // Finaliza la prueba y actualiza la tarjeta principal de resultados.
     const showResults = () => {
         if (state === "done") return;
 
@@ -114,6 +115,24 @@
 
         rounds.textContent = String(count);
         early.textContent = String(anticipations);
+
+        // Configura la tarjeta compartida con el promedio de reacción.
+        const resultCard = document.querySelector("#reflejos-result-card");
+
+        if (resultCard) {
+            resultCard.hidden = false;
+            resultCard.dataset.status = "azul";
+
+            const eyebrow = resultCard.querySelector(".result-card__eyebrow");
+            const status = resultCard.querySelector(".result-card__status");
+            const description = resultCard.querySelector(".result-card__description");
+
+            if (eyebrow) eyebrow.textContent = "RESULTADO DE LA PRUEBA";
+            if (status) status.textContent = "Tiempo de reacción";
+            if (description) {
+                description.textContent = "Promedio de tus respuestas registradas";
+            }
+        }
 
         summary.textContent =
             `Estímulos presentados: ${stimuliShown}. ` +

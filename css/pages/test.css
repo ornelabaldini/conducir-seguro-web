@@ -128,25 +128,17 @@
     filter: drop-shadow(0 0 20px rgba(0, 145, 255, .4));
 }
 
-
-/* =========================================================
-   SECCIÓN DE TESTS
-   ========================================================= */
-
 .tests-section {
     background: #f5f8fc;
     padding: 24px 0 35px;
 }
 
 .tests-section .container {
+    width: calc(100% - 48px);
     max-width: 1180px;
     margin: 0 auto;
+    box-sizing: border-box;
 }
-
-
-/* =========================================================
-   FILTROS
-   ========================================================= */
 
 .tests-filters {
     display: flex;
@@ -213,29 +205,22 @@
     font-size: 9px;
 }
 
-
-/* =========================================================
-   GRID
-   ========================================================= */
-
 .tests-grid {
+    width: calc(100% - 24px);
+    margin: 0 auto;
+    box-sizing: border-box;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
 }
 
-
-/* =========================================================
-   TARJETAS
-   ========================================================= */
-
 .test-card {
-    min-height: 220px;
-    padding: 15px;
     background: #fff;
     border: 1px solid #d9e3ed;
     border-radius: 10px;
     box-shadow: 0 3px 12px rgba(12, 43, 75, .04);
+    min-height: 250px;
+    padding: 20px;
 }
 
 .test-card:hover {
@@ -304,11 +289,11 @@
 }
 
 .test-card__description {
-    min-height: 37px;
-    margin: 13px 0 15px;
     color: #5d738a;
-    font-size: 9px;
-    line-height: 1.5;
+    min-height: 45px;
+    margin: 16px 0 18px;
+    font-size: 13px;
+    line-height: 1.55;
 }
 
 .test-card__info {
@@ -516,11 +501,6 @@
     font-size: 12px;
 }
 
-.test-card {
-    min-height: 250px;
-    padding: 20px;
-}
-
 .test-card__status {
     margin-bottom: 15px;
     padding: 5px 8px;
@@ -547,13 +527,6 @@
 
 .test-card__category {
     font-size: 11px;
-}
-
-.test-card__description {
-    min-height: 45px;
-    margin: 16px 0 18px;
-    font-size: 13px;
-    line-height: 1.55;
 }
 
 .test-card__info {
@@ -721,10 +694,25 @@
         gap: 10px;
     }
 
-    .tests-filters {
-        align-items: flex-start;
+        .tests-filters {
+        align-items: stretch;
         flex-direction: column;
         gap: 12px;
+    }
+
+    .tests-filters__categories {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100%;
+        gap: 6px;
+    }
+
+    .tests-filter {
+        min-width: 0;
+        width: 100%;
+        white-space: normal;
+        text-align: center;
     }
 
     .tests-grid {
@@ -880,7 +868,7 @@
 }
 
 #dax-start {
-    min-width: 190px;
+    min-width: 150px;
 }
 
 @media (max-width: 600px) {

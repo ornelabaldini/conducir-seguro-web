@@ -39,6 +39,7 @@
     padding: 0;
     list-style: none;
     text-align: left;
+    counter-reset: instrucciones;
 }
 
 #atencion-panel #atencion-intro li {
@@ -56,10 +57,11 @@
     box-shadow: 0 4px 12px rgba(25, 75, 48, 0.035);
     transition: transform 180ms ease, box-shadow 180ms ease,
         border-color 180ms ease;
+    counter-increment: instrucciones;
 }
 
 #atencion-panel #atencion-intro li::before {
-    content: counter(list-item);
+    content: counter(instrucciones, decimal-leading-zero);
     position: absolute;
     top: 50%;
     left: 17px;

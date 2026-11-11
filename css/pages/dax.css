@@ -45,7 +45,7 @@
     line-height: 1.75;
 }
 
-.dax-panel > div:first-child {
+.dax-panel>.dax-panel__top {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -129,8 +129,8 @@
     border-radius: 20px;
 }
 
-#dax-game > div:first-child,
-#atencion-game > div:first-child {
+#dax-game>div:first-child,
+#atencion-game>div:first-child {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -202,8 +202,8 @@
     border-radius: 20px;
 }
 
-#dax-results > div,
-#atencion-results > div {
+#dax-results>div,
+#atencion-results>div {
     margin-bottom: 22px;
 }
 
@@ -216,9 +216,9 @@
     margin: 22px 0;
 }
 
-.dax-results-grid > div,
-#dax-results .dax-results-grid > div,
-#atencion-results .dax-results-grid > div {
+.dax-results-grid>div,
+#dax-results .dax-results-grid>div,
+#atencion-results .dax-results-grid>div {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -249,6 +249,8 @@
 
 #dax-summary,
 #atencion-summary {
+    display: flex;
+    flex-direction: column;
     margin: 20px 0;
     padding: 17px 19px;
     color: #315c40;
@@ -256,6 +258,8 @@
     border: 1px solid #d2e9d7;
     border-radius: 14px;
     line-height: 1.75;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
 }
 
 .dax-panel button {
@@ -270,7 +274,7 @@
         border-radius: 19px;
     }
 
-    .dax-panel > div:first-child {
+    #dax-panel>.dax-panel__top {
         align-items: flex-start;
         flex-direction: column;
         gap: 14px;
@@ -297,9 +301,9 @@
         gap: 10px;
     }
 
-    .dax-results-grid > div,
-    #dax-results .dax-results-grid > div,
-    #atencion-results .dax-results-grid > div {
+    .dax-results-grid>div,
+    #dax-results .dax-results-grid>div,
+    #atencion-results .dax-results-grid>div {
         padding: 16px;
     }
 
@@ -308,15 +312,25 @@
         width: 100%;
     }
 
-    #dax-game > div:first-child,
-    #atencion-game > div:first-child {
+    #dax-game>div:first-child,
+    #atencion-game>div:first-child {
         align-items: flex-start;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     .dax-action,
     .dax-close {
         transition: none;
+    }
+}
+@media (max-width: 600px) {
+    #dax-panel {
+        width: calc(100% - 2px);
+        max-width: none;
+        padding-left: 15px;
+        padding-right: 15px;
+        box-sizing: border-box;
     }
 }

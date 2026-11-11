@@ -5,6 +5,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const tarjetas = Array.from(document.querySelectorAll(".test-card"));
     const grilla = document.querySelector(".tests-grid");
     const botonOrden = document.querySelector(".tests-sort");
+    const encabezado = document.querySelector(".tests-heading");
+
+    const paneles = [
+        "#dax-panel",
+        "#atencion-panel",
+        "#reflejos-panel",
+        "#fatiga-panel",
+        "#memoria-panel"
+    ].map(selector => document.querySelector(selector)).filter(Boolean);
+
+    const actualizarEncabezado = () => {
+        encabezado.hidden = paneles.some(panel => !panel.hidden);
+    };
+
+    const observer = new MutationObserver(actualizarEncabezado);
+
+    paneles.forEach(panel => {
+        observer.observe(panel, {
+            attributes: true,
+            attributeFilter: ["hidden"]
+        });
+    });
+
+    actualizarEncabezado();
 
     const categorias = {
         "Atención": "atencion",
@@ -13,16 +37,15 @@ document.addEventListener("DOMContentLoaded", () => {
         "Memoria": "memoria"
     };
 
-    // Filtros por categoría
-    filtros.forEach((filtro) => {
+    filtros.forEach(filtro => {
         filtro.addEventListener("click", () => {
             const nombre = filtro.textContent.trim();
             const categoria = categorias[nombre];
 
-            filtros.forEach((boton) => boton.classList.remove("active"));
+            filtros.forEach(boton => boton.classList.remove("active"));
             filtro.classList.add("active");
 
-            tarjetas.forEach((tarjeta) => {
+            tarjetas.forEach(tarjeta => {
                 const coincide =
                     nombre === "Todos los tests" ||
                     tarjeta.dataset.category === categoria;
@@ -32,7 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Ordenamiento por fecha
     if (grilla && botonOrden) {
         let orden = "recientes";
 
@@ -55,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return tarjetas.indexOf(a) - tarjetas.indexOf(b);
             });
 
-            ordenadas.forEach((tarjeta) => grilla.appendChild(tarjeta));
+            ordenadas.forEach(tarjeta => grilla.appendChild(tarjeta));
 
             botonOrden.innerHTML =
                 (orden === "recientes" ? "Más recientes" : "Más antiguos") +

@@ -1,0 +1,125 @@
+﻿/* Tarjeta compartida de resultados */
+.result-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 560px;
+    margin: 24px auto;
+    padding: 28px 24px;
+    border: 1px solid var(--result-border);
+    border-radius: 18px;
+    background: var(--result-background);
+    text-align: center;
+}
+
+.result-card[data-status="verde"] {
+    --result-color: #23834d;
+    --result-background: #edf8f1;
+    --result-border: #b8dfc6;
+}
+
+.result-card[data-status="amarillo"] {
+    --result-color: #946500;
+    --result-background: #fff8e5;
+    --result-border: #ead69a;
+}
+
+.result-card[data-status="azul"] {
+    --result-color: #315f9d;
+    --result-background: #eef4fc;
+    --result-border: #bfd0e8;
+}
+
+.result-card__eyebrow {
+    color: var(--result-color);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.result-card__status {
+    color: var(--result-color);
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.result-card__description {
+    color: #333;
+    font-size: 1rem;
+}
+
+.result-card__score {
+    margin-top: 8px;
+    color: var(--result-color);
+    font-size: 2.2rem;
+    font-weight: 800;
+}
+
+.result-card__metric {
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.result-card__note {
+    max-width: 440px;
+    margin: 12px 0 0;
+    color: #555;
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+    .result-card {
+        padding: 24px 16px;
+    }
+}
+
+/* Adaptación de la tarjeta compartida a pantallas pequeñas */
+.result-card,
+.result-card * {
+    box-sizing: border-box;
+}
+
+.result-card {
+    width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.result-card__eyebrow,
+.result-card__description,
+.result-card__metric,
+.result-card__note {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+.result-card__score {
+    max-width: 100%;
+    font-size: clamp(1.7rem, 8vw, 2.2rem);
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+    .result-card {
+        margin: 16px 0;
+        padding: 24px 16px;
+        gap: 12px;
+        border-radius: 15px;
+    }
+
+    .result-card__status {
+        font-size: 1.8rem;
+    }
+
+    .result-card__description {
+        font-size: 0.95rem;
+    }
+
+    .result-card__note {
+        font-size: 0.78rem;
+        line-height: 1.5;
+    }
+}

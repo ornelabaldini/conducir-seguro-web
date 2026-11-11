@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }, FEEDBACK_TIME);
     }
-
+    // Finaliza el ejercicio y actualiza la tarjeta principal de resultados.
     function showResults() {
         if (!running) return;
 
@@ -255,6 +255,24 @@ document.addEventListener("DOMContentLoaded", () => {
         $("#memoria-omissions").textContent = failedSequences;
         $("#memoria-errors").textContent = attempts;
         $("#memoria-accuracy").textContent = maxSpan + " bloques";
+
+        // Configura la tarjeta compartida con la secuencia máxima alcanzada.
+        const resultCard = $("#memoria-result-card");
+
+        if (resultCard) {
+            resultCard.hidden = false;
+            resultCard.dataset.status = "azul";
+
+            const eyebrow = resultCard.querySelector(".result-card__eyebrow");
+            const status = resultCard.querySelector(".result-card__status");
+            const description = resultCard.querySelector(".result-card__description");
+
+            if (eyebrow) eyebrow.textContent = "RESULTADO DE LA PRUEBA";
+            if (status) status.textContent = maxSpan + " bloques";
+            if (description) {
+                description.textContent = "Secuencia más larga reproducida correctamente";
+            }
+        }
 
         $("#memoria-summary").textContent =
             "Tu secuencia más larga reproducida correctamente fue de " +
