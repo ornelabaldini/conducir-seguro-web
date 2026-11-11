@@ -1,7 +1,9 @@
+
 (() => {
     "use strict";
 
-    // REFLEJOS-CONTINUO-45S-V1
+    const MAX_DURATION = 45000;
+
     const panel = document.querySelector("#reflejos-panel");
     if (!panel) return;
 
@@ -13,99 +15,52 @@
     const progress = document.querySelector("#reflejos-progress");
     const clock = document.querySelector("#reflejos-clock");
 
-    const MAX_DURATION = 45000;
+    const average = document.querySelector("#reflejos-average");
+    const best = document.querySelector("#reflejos-best");
+    const rounds = document.querySelector("#reflejos-rounds");
+    const early = document.querySelector("#reflejos-early");
+    const summary = document.querySelector("#reflejos-summary");
 
-    const signals = [
-        { type: "go", label: "\u00A1AHORA!", color: "reflejos-target--ready" },
-        { type: "go", label: "\u00A1TOC\u00C1!", color: "reflejos-target--ready" },
-        { type: "go", label: "\u00A1REACCION\u00C1!", color: "reflejos-target--ready" },
-        { type: "stop", label: "AMARILLO \u00B7 NO TOQUES", color: "reflejos-target--caution" },
-        { type: "stop", label: "AMARILLO \u00B7 ESPER\u00C1", color: "reflejos-target--caution" }
-    ];
-
-    let reactionTimes = [];
-    let earlyResponses = 0;
-    let errors = 0;
-    let missedGreens = 0;
-    let correctStops = 0;
-    let signalsShown = 0;
     let state = "idle";
+    let reactionTimes = [];
+    let anticipations = 0;
+    let missed = 0;
+    let stimuliShown = 0;
     let signalTime = 0;
-    let timerId = null;
-    let deadlineTimer = null;
     let deadlineAt = 0;
-    let currentSignal = null;
-    let lastSignalType = "";
+    let trialTimer = null;
+    let deadlineTimer = null;
+    let clockTimer = null;
 
-    const clearTimer = () => {
-        if (timerId !== null) {
-            window.clearTimeout(timerId);
-            timerId = null;
-        }
-    };
-
-    const clearDeadline = () => {
-        if (deadlineTimer !== null) {
-            window.clearInterval(deadlineTimer);
-            deadlineTimer = null;
-        }
+    const clearTimers = () => {
+        clearTimeout(trialTimer);
+        clearTimeout(deadlineTimer);
+        clearInterval(clockTimer);
+        trialTimer = null;
+        deadlineTimer = null;
+        clockTimer = null;
     };
 
     const scrollToCenter = (element) => {
         window.requestAnimationFrame(() => {
-            window.setTimeout(() => {
-                if (!panel.hidden && element && !element.hidden) {
-                    element.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center",
-                        inline: "nearest"
-                    });
-                }
-            }, 60);
+            element.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
         });
     };
 
-    const resetView = () => {
-        clearTimer();
-        clearDeadline();
-
-        state = "idle";
-        reactionTimes = [];
-        earlyResponses = 0;
-        errors = 0;
-        missedGreens = 0;
-        correctStops = 0;
-        signalsShown = 0;
-        currentSignal = null;
-        lastSignalType = "";
-
-        intro.hidden = false;
-        game.hidden = true;
-        results.hidden = true;
-
+    const resetTarget = () => {
         target.disabled = false;
-        target.className = "reflejos-target reflejos-target--waiting";
-        target.textContent = "Prepar\u00E1 la vista...";
-        feedback.textContent = "Esper\u00E1 a que aparezca la se\u00F1al verde.";
-        progress.textContent = "Listo para comenzar";
-        clock.textContent = "Duraci\u00F3n: 45 segundos";
+        target.className =
+            "reflejos-target reflejos-target--waiting";
+        target.textContent = "Esperá la señal...";
     };
 
     const closePanel = () => {
-        resetView();
+        clearTimers();
+        state = "idle";
         panel.hidden = true;
-
-        const allFilter = Array.from(
-            document.querySelectorAll(".tests-filter")
-        ).find((control) => control.textContent.trim() === "Todos los tests");
-
-        if (allFilter) {
-            allFilter.click();
-        } else {
-            document.querySelectorAll(".test-card").forEach((card) => {
-                card.hidden = false;
-            });
-        }
 
         document.querySelector(".tests-section")?.scrollIntoView({
             behavior: "smooth",
@@ -114,269 +69,169 @@
     };
 
     const openPanel = () => {
+        clearTimers();
+        state = "idle";
+
         document.querySelector("#dax-close")?.click();
         document.querySelector("#atencion-close")?.click();
 
-        resetView();
+        intro.hidden = false;
+        game.hidden = true;
+        results.hidden = true;
         panel.hidden = false;
+
         scrollToCenter(intro);
     };
 
-    const chooseSignal = () => {
-        let available = signals.filter(
-            (signal) => signal.type !== lastSignalType
-        );
-
-        if (!available.length) available = signals;
-
-        const signal = available[Math.floor(Math.random() * available.length)];
-        lastSignalType = signal.type;
-        return signal;
-    };
-
-    const showResults = (timeExpired = false) => {
+    const showResults = () => {
         if (state === "done") return;
 
-        clearTimer();
-        clearDeadline();
+        if (state === "ready") missed++;
+
+        clearTimers();
         state = "done";
-        currentSignal = null;
 
         game.hidden = true;
-        intro.hidden = true;
         results.hidden = false;
 
         const count = reactionTimes.length;
-        const average = count
+
+        const averageTime = count
             ? Math.round(
-                reactionTimes.reduce((sum, time) => sum + time, 0) / count
+                reactionTimes.reduce((sum, value) => sum + value, 0) / count
             )
             : null;
-        const best = count ? Math.min(...reactionTimes) : null;
 
-        document.querySelector("#reflejos-average").textContent =
-            average === null ? "\u2014" : `${average} ms`;
+        const bestTime = count
+            ? Math.min(...reactionTimes)
+            : null;
 
-        document.querySelector("#reflejos-best").textContent =
-            best === null ? "\u2014" : `${best} ms`;
+        average.textContent =
+            averageTime === null ? "—" : `${averageTime} ms`;
 
-        document.querySelector("#reflejos-rounds").textContent = String(count);
-        document.querySelector("#reflejos-early").textContent =
-            String(earlyResponses);
+        best.textContent =
+            bestTime === null ? "—" : `${bestTime} ms`;
 
-        const summary = document.querySelector("#reflejos-summary");
+        rounds.textContent = String(count);
+        early.textContent = String(anticipations);
 
-        if (count === 0) {
-            summary.textContent = timeExpired
-                ? "Terminaron los 45 segundos sin registrar aciertos verdes. Podes repetir la prueba."
-                : "No se registraron respuestas verdes validas.";
-        } else {
-            summary.textContent =
-                `Prueba finalizada. Registraste ${count} aciertos verdes, ` +
-                `con una reaccion media de ${average} ms y un mejor tiempo de ${best} ms.`;
-        }
-
-        let errorNote = results.querySelector("#reflejos-error-note");
-
-        if (!errorNote) {
-            errorNote = document.createElement("p");
-            errorNote.id = "reflejos-error-note";
-            errorNote.className = "reflejos-error-note";
-
-            const heading = results.querySelector("h2");
-            if (heading) {
-                heading.insertAdjacentElement("afterend", errorNote);
-            } else {
-                results.prepend(errorNote);
-            }
-        }
-
-        errorNote.textContent =
-            `Errores totales: ${errors}. ` +
-            `Verdes perdidas: ${missedGreens}. ` +
-            `Amarillas respetadas: ${correctStops}. ` +
-            `Respuestas anticipadas: ${earlyResponses}.`;
-
-        scrollToCenter(results);
+        summary.textContent =
+            `Estímulos presentados: ${stimuliShown}. ` +
+            `Respuestas registradas: ${count}. ` +
+            `Estímulos sin respuesta: ${missed}. ` +
+            `Respuestas anticipadas: ${anticipations}.`;
     };
 
-    const scheduleNext = (delay) => {
-        clearTimer();
-        timerId = window.setTimeout(() => {
-            timerId = null;
-            beginRound();
-        }, delay);
-    };
-
-    const beginRound = () => {
-        clearTimer();
-
+    const scheduleNext = () => {
         if (state === "done") return;
 
-        if (performance.now() >= deadlineAt) {
-            showResults(true);
-            return;
-        }
-
         state = "waiting";
-        currentSignal = null;
+        resetTarget();
 
-        progress.textContent = `Se\u00F1al ${signalsShown + 1}`;
         feedback.textContent =
-            "Verde: toca lo mas rapido posible. Amarillo: no toques.";
+            "Esperá a que aparezca la señal verde.";
 
-        target.disabled = false;
-        target.className = "reflejos-target reflejos-target--waiting";
-        target.textContent = "PREPARATE";
+        const delay = 1000 + Math.random() * 2000;
 
-        const delay = 650 + Math.random() * 1450;
+        trialTimer = window.setTimeout(() => {
+            trialTimer = null;
 
-        timerId = window.setTimeout(() => {
-            timerId = null;
-
-            if (state !== "waiting") return;
+            if (state === "done") return;
 
             if (performance.now() >= deadlineAt) {
-                showResults(true);
+                showResults();
                 return;
             }
 
-            currentSignal = chooseSignal();
             state = "ready";
+            stimuliShown++;
             signalTime = performance.now();
-            signalsShown += 1;
 
-            target.className = `reflejos-target ${currentSignal.color}`;
-            target.textContent = currentSignal.label;
-
-            if (currentSignal.type === "go") {
-                feedback.textContent = "\u00A1Verde! Toca lo mas rapido posible.";
-            } else {
-                feedback.textContent = "Amarillo: no toques y espera la proxima se\u00F1al.";
-            }
-
-            const signalShown = currentSignal;
-            const duration = signalShown.type === "stop"
-                ? 850 + Math.random() * 450
-                : 1450 + Math.random() * 500;
-
-            timerId = window.setTimeout(() => {
-                timerId = null;
-
-                if (state !== "ready" || currentSignal !== signalShown) return;
-
-                state = "feedback";
-                currentSignal = null;
-                target.disabled = true;
-                target.className = "reflejos-target reflejos-target--waiting";
-
-                if (signalShown.type === "stop") {
-                    correctStops += 1;
-                    target.textContent = "\u00A1BIEN!";
-                    feedback.textContent = "No tocaste el amarillo. Respuesta correcta.";
-                } else {
-                    errors += 1;
-                    missedGreens += 1;
-                    target.textContent = "SE\u00D1AL PERDIDA";
-                    feedback.textContent = "No alcanzaste a tocar el verde. Cuenta como error.";
-                }
-
-                scheduleNext(300);
-            }, duration);
+            progress.textContent = `Estímulo ${stimuliShown}`;
+            target.className =
+                "reflejos-target reflejos-target--ready";
+            target.textContent = "¡AHORA!";
+            feedback.textContent =
+                "¡Respondé lo más rápido posible!";
         }, delay);
     };
 
     const startTest = () => {
-        resetView();
+        clearTimers();
+
+        reactionTimes = [];
+        anticipations = 0;
+        missed = 0;
+        stimuliShown = 0;
 
         intro.hidden = true;
         results.hidden = true;
         game.hidden = false;
 
-        reactionTimes = [];
-        earlyResponses = 0;
-        errors = 0;
-        missedGreens = 0;
-        correctStops = 0;
-        signalsShown = 0;
-        currentSignal = null;
-        lastSignalType = "";
-
-        deadlineAt = performance.now() + MAX_DURATION;
         state = "waiting";
+        deadlineAt = performance.now() + MAX_DURATION;
 
         clock.textContent = "Quedan 45 s";
+        progress.textContent = "Preparado";
         feedback.textContent =
-            "La prueba comenzo. Verde: toca. Amarillo: no toques.";
+            "Esperá a que aparezca la señal verde.";
 
-        deadlineTimer = window.setInterval(() => {
+        resetTarget();
+
+        deadlineTimer = window.setTimeout(showResults, MAX_DURATION);
+
+        clockTimer = window.setInterval(() => {
             const remaining = Math.max(
                 0,
                 Math.ceil((deadlineAt - performance.now()) / 1000)
             );
 
-            if (state !== "done") {
-                clock.textContent = `Quedan ${remaining} s`;
-            }
-
-            if (remaining <= 0) {
-                showResults(true);
-            }
-        }, 100);
+            clock.textContent = `Quedan ${remaining} s`;
+        }, 200);
 
         scrollToCenter(target);
-        beginRound();
+        scheduleNext();
     };
 
     target.addEventListener("click", () => {
         if (state === "waiting") {
-            earlyResponses += 1;
-            errors += 1;
-            clearTimer();
-
-            state = "early";
-            target.disabled = true;
-            target.className = "reflejos-target reflejos-target--early";
-            target.textContent = "\u00A1TE ADELANTASTE!";
-            feedback.textContent = "Espera a que aparezca la se\u00F1al.";
-
-            scheduleNext(500);
+            anticipations++;
+            feedback.textContent =
+                "Te adelantaste. Esperá la señal verde.";
             return;
         }
 
-        if (state !== "ready" || !currentSignal) return;
+        if (state !== "ready") return;
 
-        clearTimer();
+        const elapsed = Math.round(
+            performance.now() - signalTime
+        );
 
-        if (currentSignal.type === "stop") {
-            errors += 1;
-            currentSignal = null;
-            state = "feedback";
-            target.disabled = true;
-            target.className = "reflejos-target reflejos-target--early";
-            target.textContent = "\u00A1ERA AMARILLO!";
-            feedback.textContent = "En amarillo tenias que esperar sin tocar.";
-
-            scheduleNext(400);
-            return;
-        }
-
-        const elapsed = Math.round(performance.now() - signalTime);
         reactionTimes.push(elapsed);
-        currentSignal = null;
         state = "feedback";
-        target.disabled = true;
-        target.className = "reflejos-target reflejos-target--waiting";
-        target.textContent = `${elapsed} ms`;
-        feedback.textContent =
-            `Reaccion registrada: ${elapsed} ms. Segui atento a la proxima se\u00F1al.`;
 
-        scheduleNext(300);
+        target.className =
+            "reflejos-target reflejos-target--waiting";
+        target.textContent = `${elapsed} ms`;
+
+        feedback.textContent =
+            `Respuesta registrada: ${elapsed} ms.`;
+
+        scheduleNext();
     });
 
-    document.querySelector("#reflejos-open")?.addEventListener("click", openPanel);
-    document.querySelector("#reflejos-close")?.addEventListener("click", closePanel);
-    document.querySelector("#reflejos-start")?.addEventListener("click", startTest);
-    document.querySelector("#reflejos-restart")?.addEventListener("click", startTest);
-    document.querySelector("#reflejos-back")?.addEventListener("click", closePanel);
+    document.querySelector("#reflejos-open")
+        ?.addEventListener("click", openPanel);
+
+    document.querySelector("#reflejos-close")
+        ?.addEventListener("click", closePanel);
+
+    document.querySelector("#reflejos-start")
+        ?.addEventListener("click", startTest);
+
+    document.querySelector("#reflejos-restart")
+        ?.addEventListener("click", startTest);
+
+    document.querySelector("#reflejos-back")
+        ?.addEventListener("click", closePanel);
 })();

@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
     const $ = selector => document.querySelector(selector);
     const panel = $("#fatiga-panel");
@@ -6,23 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const intro = $("#fatiga-intro");
     const game = $("#fatiga-game");
     const results = $("#fatiga-results");
-    const road = $(".fatiga-road");
-    const roadEvent = $("#fatiga-event");
-    const eventSign = $("#fatiga-event-sign");
-    const eventIcon = $("#fatiga-event-icon");
+    const stimulus = $("#fatiga-stimulus");
     const respondButton = $("#fatiga-respond");
 
-    const DURATION = 30000;
-    const EVENT_MIN = 3000;
-    const EVENT_MAX = 6000;
-    const EVENT_WINDOW = 2600;
-
-    const EVENTS = [
-        { type: "warning", icon: "!", label: "Señal triangular de advertencia" },
-        { type: "speed", icon: "60", label: "Señal circular de velocidad máxima" },
-        { type: "stop", icon: "!", label: "Señal octogonal de detención" },
-        { type: "curve", icon: "↗", label: "Advertencia de curva" }
-    ];
+    const DURATION = 60000;
+    const STIMULUS_MIN = 1500;
+    const STIMULUS_MAX = 3500;
+    const STIMULUS_WINDOW = 1500;
 
     let running = false;
     let deadline = 0;
@@ -52,8 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         clearTimers();
         eventActive = false;
 
-        if (roadEvent) roadEvent.hidden = true;
-        road?.classList.remove("is-driving");
+        if (stimulus) stimulus.hidden = true;
         respondButton?.classList.remove("fatiga-btn--alert");
     }
 
@@ -64,9 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const finalResults = $("#fatiga-final-results");
         if (finalResults) finalResults.hidden = true;
-
-        const comparison = $(".fatiga-alertness-comparison");
-        if (comparison) comparison.hidden = true;
     }
 
     function openPanel() {
@@ -106,14 +93,15 @@ document.addEventListener("DOMContentLoaded", () => {
         if (remaining <= 0) finishTest();
     }
 
-    function scheduleEvent() {
+    function scheduleStimulus() {
         if (!running) return;
 
-        const delay = EVENT_MIN + Math.random() * (EVENT_MAX - EVENT_MIN);
-        eventTimer = window.setTimeout(showEvent, delay);
+        const delay = STIMULUS_MIN + Math.random() * (STIMULUS_MAX - STIMULUS_MIN);
+
+        eventTimer = window.setTimeout(showStimulus, delay);
     }
 
-    function showEvent() {
+    function showStimulus() {
         if (!running) return;
 
         if (performance.now() >= deadline) {
@@ -123,16 +111,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         eventActive = true;
         eventShownAt = performance.now();
+        stimulus.hidden = false;
 
-        const event = EVENTS[Math.floor(Math.random() * EVENTS.length)];
-
-        eventSign.className = `fatiga-sign fatiga-sign--${event.type}`;
-        eventIcon.textContent = event.icon;
-        roadEvent.setAttribute("aria-label", event.label);
-        roadEvent.hidden = false;
-
-        $("#fatiga-feedback").textContent =
-            "Señal visible: registrala antes de que desaparezca.";
+        $("#fatiga-progress").textContent = "Estímulo visible";
+        $("#fatiga-feedback").textContent = "¡Respondé ahora!";
 
         respondButton.classList.add("fatiga-btn--alert");
 
@@ -141,14 +123,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             omissions++;
             eventActive = false;
-            roadEvent.hidden = true;
+            stimulus.hidden = true;
             respondButton.classList.remove("fatiga-btn--alert");
 
-            $("#fatiga-feedback").textContent =
-                "Señal no registrada. Seguí observando la ruta.";
+            $("#fatiga-progress").textContent = "Esperando estímulo";
+            $("#fatiga-feedback").textContent = "No hubo respuesta. Continuá atento.";
 
-            scheduleEvent();
-        }, EVENT_WINDOW);
+            scheduleStimulus();
+        }, STIMULUS_WINDOW);
     }
 
     function respond() {
@@ -158,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
             errors++;
 
             $("#fatiga-feedback").textContent =
-                "No hay una señal activa. Esperá a que aparezca la próxima.";
+                "Respuesta anticipada. Esperá a que aparezca el estímulo.";
 
             return;
         }
@@ -172,13 +154,13 @@ document.addEventListener("DOMContentLoaded", () => {
             eventTimer = null;
         }
 
-        roadEvent.hidden = true;
+        stimulus.hidden = true;
         respondButton.classList.remove("fatiga-btn--alert");
 
-        $("#fatiga-feedback").textContent =
-            "Señal registrada. Mantené la atención en la ruta.";
+        $("#fatiga-progress").textContent = "Esperando estímulo";
+        $("#fatiga-feedback").textContent = "Respuesta registrada. Continuá atento.";
 
-        scheduleEvent();
+        scheduleStimulus();
     }
 
     function startTest() {
@@ -199,23 +181,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const finalResults = $("#fatiga-final-results");
         if (finalResults) finalResults.hidden = true;
 
-        const comparison = $(".fatiga-alertness-comparison");
-        if (comparison) comparison.hidden = true;
+        stimulus.hidden = true;
 
-        roadEvent.hidden = true;
-        road?.classList.add("is-driving");
-
-        $("#fatiga-progress").textContent = "Observación continua";
-        $("#fatiga-feedback").textContent =
-            "Observá el entorno y esperá una señal.";
+        $("#fatiga-progress").textContent = "Esperando estímulo";
+        $("#fatiga-feedback").textContent = "Mantené la atención y esperá.";
 
         respondButton.classList.remove("fatiga-btn--alert");
 
         updateClock();
 
         if (running) {
-            clockTimer = window.setInterval(updateClock, 250);
-            scheduleEvent();
+            clockTimer = window.setInterval(updateClock, 100);
+            scheduleStimulus();
         }
 
         window.setTimeout(() => {
@@ -247,13 +224,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function showResults() {
-        const average = mean(reactionTimes);
         const midpoint = Math.ceil(reactionTimes.length / 2);
+        const average = mean(reactionTimes);
         const first = mean(reactionTimes.slice(0, midpoint));
         const last = mean(reactionTimes.slice(midpoint));
-
-        const comparison = $(".fatiga-alertness-comparison");
-        if (comparison) comparison.hidden = true;
 
         $("#fatiga-hits").textContent = hits;
         $("#fatiga-omissions").textContent = omissions;
@@ -269,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
             last === null ? "Sin registros" : `${last} ms`;
 
         $("#fatiga-summary").textContent =
-            `Durante la simulación registraste ${hits} señales, omitiste ${omissions} y respondiste sin una señal activa ${errors} veces. Estos datos corresponden a una única sesión y pueden verse influidos por múltiples factores.`;
+            `Registraste ${hits} respuestas, ${omissions} omisiones y ${errors} respuestas anticipadas. Los tiempos corresponden únicamente a esta sesión y no permiten diagnosticar fatiga.`;
 
         const finalResults = $("#fatiga-final-results");
         if (finalResults) finalResults.hidden = false;
