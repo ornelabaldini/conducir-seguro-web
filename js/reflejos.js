@@ -116,21 +116,38 @@
         rounds.textContent = String(count);
         early.textContent = String(anticipations);
 
-        // Configura la tarjeta compartida con el promedio de reacción.
+        // Clasifica el resultado según los criterios orientativos del proyecto.
         const resultCard = document.querySelector("#reflejos-result-card");
 
         if (resultCard) {
+            const statusColor = averageTime === null || anticipations > 3
+                ? "azul"
+                : missed >= 2 || anticipations >= 2
+                    ? "amarillo"
+                    : "verde";
+
             resultCard.hidden = false;
-            resultCard.dataset.status = "azul";
+            resultCard.dataset.status = statusColor;
 
             const eyebrow = resultCard.querySelector(".result-card__eyebrow");
             const status = resultCard.querySelector(".result-card__status");
             const description = resultCard.querySelector(".result-card__description");
 
             if (eyebrow) eyebrow.textContent = "RESULTADO DE LA PRUEBA";
-            if (status) status.textContent = "Tiempo de reacción";
+
+            if (status) {
+                status.textContent = averageTime === null
+                    ? "Sin respuestas registradas"
+                    : `${averageTime} ms`;
+            }
+
             if (description) {
-                description.textContent = "Promedio de tus respuestas registradas";
+                description.textContent =
+                    statusColor === "verde"
+                        ? "Eficiencia alta según los criterios orientativos del proyecto."
+                        : statusColor === "amarillo"
+                            ? "Eficiencia intermedia según los criterios orientativos del proyecto."
+                            : "Resultado informativo, sin clasificación de rendimiento.";
             }
         }
 

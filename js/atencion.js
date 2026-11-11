@@ -254,7 +254,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (resultCard) {
             resultCard.hidden = false;
-            resultCard.dataset.status = "azul";
+            const correctInhibitions = TEST_PER_DIGIT - errors;
+            const totalStimuli = 9 * TEST_PER_DIGIT;
+            const accuracy = ((hits + correctInhibitions) / totalStimuli) * 100;
+
+            resultCard.dataset.status = accuracy >= 90 ? "verde" : "amarillo";
 
             const eyebrow = resultCard.querySelector(".result-card__eyebrow");
             const status = resultCard.querySelector(".result-card__status");

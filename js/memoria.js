@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const BLOCK_COUNT = 9;
     const MIN_SPAN = 2;
     const MAX_SPAN = 8;
-    const TRIALS_PER_LEVEL = 1;
+    const TRIALS_PER_LEVEL = 2;
     const FLASH_TIME = 700;
     const PAUSE_TIME = 350;
     const FEEDBACK_TIME = 1200;
@@ -261,7 +261,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (resultCard) {
             resultCard.hidden = false;
-            resultCard.dataset.status = "azul";
+            resultCard.dataset.status =
+                maxSpan >= 5 ? "verde" :
+                    maxSpan >= 3 ? "amarillo" :
+                        "azul";
 
             const eyebrow = resultCard.querySelector(".result-card__eyebrow");
             const status = resultCard.querySelector(".result-card__status");
