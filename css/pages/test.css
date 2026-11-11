@@ -839,3 +839,72 @@
         line-height: 1.4;
     }
 }
+
+/* CONFIGURACIÓN DE LA PRUEBA DAX */
+
+.dax-config {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    max-width: 440px;
+    margin: 24px 0 16px;
+    padding: 16px 18px;
+    background: #f0f7fd;
+    border: 1px solid #d7e8f7;
+    border-radius: 12px;
+}
+
+.dax-config label {
+    color: #12395e;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.dax-config select {
+    min-width: 145px;
+    padding: 11px 34px 11px 12px;
+    border: 1px solid #c5d9eb;
+    border-radius: 8px;
+    background: #fff;
+    color: #12395e;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+}
+
+.dax-config select:focus {
+    border-color: #1687d9;
+    box-shadow: 0 0 0 3px rgba(22, 135, 217, .12);
+}
+
+#dax-start {
+    min-width: 190px;
+}
+
+@media (max-width: 600px) {
+    .dax-config {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        max-width: none;
+        margin: 20px 0 14px;
+        padding: 15px;
+    }
+
+    .dax-config label {
+        font-size: 14px;
+    }
+
+    .dax-config select {
+        width: 100%;
+        min-height: 46px;
+        font-size: 15px;
+    }
+
+    #dax-start {
+        width: 100%;
+        min-height: 46px;
+    }
+}

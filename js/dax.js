@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
     const panel = document.querySelector("#dax-panel");
     if (!panel) return;
@@ -11,7 +12,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const clock = document.querySelector("#dax-clock");
     const respondButton = document.querySelector("#dax-respond");
 
-    const TOTAL = 60;
+    let TOTAL = 60;
+    const totalSelect = document.querySelector("#dax-total");
+    const TARGETS = {
+        30: 3,
+        60: 6,
+        90: 9
+    };
+    const STIMULUS_TIME = 900;
+
     let sequence = [];
     let index = 0;
     let responded = false;
@@ -35,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.querySelector("#dax-open")?.addEventListener("click", openPanel);
+
     document.querySelector("#dax-close")?.addEventListener("click", () => {
         stopTest();
         panel.hidden = true;
@@ -44,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function stopTest() {
         running = false;
+
         if (timer !== null) {
             clearTimeout(timer);
             timer = null;
@@ -51,24 +62,34 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function createSequence() {
-        const letters = [];
-        const distractors = ["B", "C", "D", "X"];
+        const totalTargets = TARGETS[TOTAL];
+        const letters = Array(TOTAL).fill(null);
+        const positions = [];
 
-        while (letters.length < TOTAL) {
-            if (letters[letters.length - 1] === "A") {
-                letters.push("X");
-            } else if (Math.random() < 0.22) {
-                letters.push("A");
-            } else {
-                letters.push(distractors[Math.floor(Math.random() * distractors.length)]);
+        while (positions.length < totalTargets) {
+            const position = Math.floor(Math.random() * (TOTAL - 1)) + 1;
+
+            if (
+                letters[position] === null &&
+                letters[position - 1] === null
+            ) {
+                positions.push(position);
+                letters[position - 1] = "A";
+                letters[position] = "X";
             }
         }
 
-        return letters;
+        const distractors = ["B", "C", "D"];
+
+        return letters.map(letter =>
+            letter ?? distractors[Math.floor(Math.random() * distractors.length)]
+        );
     }
 
     function startTest() {
         stopTest();
+
+        TOTAL = Number(totalSelect.value);
         sequence = createSequence();
         index = 0;
         hits = 0;
@@ -81,13 +102,12 @@ document.addEventListener("DOMContentLoaded", () => {
         results.hidden = true;
         game.hidden = false;
 
-        // DAX-AUTO-DESPLAZAMIENTO-MOVIL-V1
-        // Esperar a que el ejercicio sea visible antes de desplazar la pantalla.
         window.requestAnimationFrame(() => {
             window.setTimeout(() => {
                 if (panel.hidden || game.hidden || !running) return;
 
                 const esMovil = window.matchMedia("(max-width: 700px)").matches;
+
                 game.scrollIntoView({
                     behavior: "smooth",
                     block: esMovil ? "center" : "nearest",
@@ -96,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 100);
         });
 
-        deadline = performance.now() + TOTAL * 900;
+        deadline = performance.now() + TOTAL * STIMULUS_TIME;
         showStimulus();
     }
 
@@ -108,8 +128,10 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        target = sequence[index] === "X" &&
+            index > 0 &&
+            sequence[index - 1] === "A";
 
-        target = sequence[index] === "X" && index > 0 && sequence[index - 1] === "A";
         responded = false;
         shownAt = performance.now();
 
@@ -120,9 +142,13 @@ document.addEventListener("DOMContentLoaded", () => {
         respondButton.disabled = false;
 
         timer = setTimeout(() => {
-                index++;
+            if (target && !responded) {
+                omissions++;
+            }
+
+            index++;
             showStimulus();
-        }, 900);
+        }, STIMULUS_TIME);
     }
 
     function respond() {
@@ -142,8 +168,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function finishTest() {
         if (!running) return;
-        stopTest();
 
+        stopTest();
 
         game.hidden = true;
         results.hidden = false;
@@ -153,12 +179,16 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#dax-errors").textContent = errors;
 
         const average = reactionTimes.length
-            ? `${Math.round(reactionTimes.reduce((sum, value) => sum + value, 0) / reactionTimes.length)} ms`
+            ? `${Math.round(
+                reactionTimes.reduce((sum, value) => sum + value, 0) /
+                reactionTimes.length
+            )} ms`
             : "Sin registros";
 
         document.querySelector("#dax-average").textContent = average;
 
         const summary = document.querySelector("#dax-summary");
+
         summary.textContent = errors > 0 || omissions > 0
             ? "Revisá los errores y las omisiones. Repetir el ejercicio en condiciones tranquilas puede ayudarte a observar tus respuestas."
             : "En esta ronda no registraste errores ni omisiones. Este resultado no demuestra por sí solo que estés en condiciones de conducir.";
@@ -168,10 +198,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("#dax-restart").addEventListener("click", startTest);
     respondButton.addEventListener("click", respond);
 
-    document.addEventListener("keydown", (event) => {
+    document.addEventListener("keydown", event => {
         if (event.code !== "Space" || !running || panel.hidden) return;
+
         event.preventDefault();
         respond();
     });
 });
-
