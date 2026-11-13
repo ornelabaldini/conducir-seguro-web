@@ -59,11 +59,28 @@ El flujo principal de la aplicación es:
 ```text
 conducir-seguro-web/
 │
-├── index.html
+├── index.html        → Inicio
+├── test.html         → Tests
+├── about.html        → Proyecto
+├── contact.html      → Contacto
+├── faq.html          → Centro de ayuda y preguntas frecuentes
+├── guide.html        → Guía de uso
+├── terms.html        → Términos y condiciones
+├── privacy.html      → Política de privacidad
+│
 ├── css/
+│   ├── base/         → variables y estilos base compartidos
+│   ├── components/   → navbar y footer
+│   └── pages/        → estilos propios de cada página
+│
 ├── js/
-├── assets/
-├── README.md
+│   ├── core/         → almacenamiento local
+│   ├── services/     → autenticación
+│   └── ...           → lógica de cada test
+│
+├── image/            → logos, íconos e imágenes
+└── README.md
+```
 
 ---
 

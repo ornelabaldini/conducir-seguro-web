@@ -1,4 +1,3 @@
-/*Tarjetas*/
 .help-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -97,7 +96,6 @@
   }
 }
 
-/*Información de contacto*/
 .contact-info .badge-tag {
     color: var(--color-accent-blue);
     display: flex;
@@ -176,7 +174,6 @@
     text-decoration: underline;
 }
 
-/* Formulario */
 .contact-form {
     background-color: var(--bg-card-white);
     padding: 2.5rem;
@@ -249,7 +246,6 @@
   margin-top: 0.5rem;
 }
 
-/* Casilla de verificación */
 .checkbox-container {
   display: flex;
   align-items: flex-start;
@@ -277,8 +273,6 @@
   color: var(--color-primary-hover);
 }
 
-/* Estilos específicos del botón del formulario */
-/* Botón enviar mensaje */
 .btn-submit {
     width: 100%;
     max-width: 310px;
@@ -342,8 +336,6 @@
   padding-right: 2.5rem;
 }
 
-
-/*Tarjetas que están debajo del footer*/
 
 .help-banner {
   background-color: #eef6ff;

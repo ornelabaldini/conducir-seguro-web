@@ -1,5 +1,4 @@
 ﻿:root {
-  /* Color Palette */
   --bg-dark-header: #07152b;
   --bg-dark-gradient: linear-gradient(135deg, #07152b 0%, #0d284f 100%);
   --bg-light-body: #f4f7fa;
@@ -17,7 +16,6 @@
   --color-badge-available: #e0f2fe;
   --color-badge-text-available: #0369a1;
 
-  /* Layout & Geometry */
   --container-max-width: 1200px;
   --border-radius-sm: 8px;
   --border-radius-md: 12px;

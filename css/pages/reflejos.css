@@ -1,4 +1,3 @@
-/* Test de Reflejos */
 #reflejos-panel #reflejos-intro {
     max-width: 850px;
     margin: 24px auto;
@@ -125,7 +124,6 @@
     }
 }
 
-/* MEJORAS-REFLEJOS-CENTRADO-V2 */
 #reflejos-panel {
     box-sizing: border-box;
     width: min(900px, calc(100% - 32px));
@@ -235,8 +233,6 @@
     }
 }
 
-/* ESPACIADO-REFLEJOS-V3 */
-/* Separacion de la marca y el contenido respecto de los bordes */
 header .container,
 .navbar .container,
 .nav-container,
@@ -318,7 +314,6 @@ header .container,
     }
 }
 
-/* REFLEJOS-AMARILLO-V1 */
 #reflejos-panel .reflejos-target--caution {
     border: 3px solid #a16207;
     background: #facc15;

@@ -1,6 +1,3 @@
-/* ==========================================
-   FOOTER COMPONENT (SOLID - SRP)
-   ========================================== */
 .site-footer {
   background-color: var(--bg-dark-header);
   color: var(--color-text-light);
@@ -93,7 +90,6 @@
   color: #ffffff;
 }
 
-/* Sección Institucional (UTN) */
 .footer__institution {
   display: flex;
   flex-direction: column;
@@ -115,7 +111,6 @@
   line-height: 1.4;
 }
 
-/* Bottom Copy */
 .footer__bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding-top: 1.5rem;
@@ -124,7 +119,6 @@
   font-size: 0.8rem;
 }
 
-/* Layout Responsive */
 @media (max-width: 1024px) {
   .footer__grid {
     grid-template-columns: 1fr 1fr;

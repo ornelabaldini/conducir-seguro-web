@@ -1,8 +1,3 @@
-/* ==========================================================
-   PANELES DE TESTS COGNITIVOS
-   DAX, Atención sostenida y paneles con clase dax-panel
-   ========================================================== */
-
 .dax-panel {
     box-sizing: border-box;
     width: min(100% - 32px, 960px);
