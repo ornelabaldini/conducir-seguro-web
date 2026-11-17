@@ -5,16 +5,16 @@
 .tests-hero {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(110deg, #061a35 0%, #08294d 100%);
-    color: #fff;
-    border-radius: 0 0 20px 20px;
+    background: var(--bg-dark-gradient, linear-gradient(135deg, #07152b 0%, #0d284f 100%));
+    color: var(--color-text-light, #f8fafc);
+    border-radius:0;
 }
 
 .tests-hero>.container {
-    max-width: 1180px;
-    min-height: 265px;
+    max-width: var(--container-max-width, 1200px);
+    /*min-height: 265px;*/
     margin: 0 auto;
-    padding: 32px 25px;
+    padding: 3rem 1.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -28,20 +28,22 @@
 }
 
 .tests-hero__badge {
-    display: block;
-    margin-bottom: 8px;
+    display: inline-block;
+    margin-bottom: 0.75rem;
     color: #20bfff;
     font-size: 9px;
     font-weight: 700;
-    letter-spacing: .06em;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
 }
 
 .tests-hero__title {
     margin: 0 0 10px;
-    color: #fff;
+    color: #ffffff;
     font-size: 32px;
     line-height: 1.08;
     font-weight: 800;
+    letter-spacing: -0.02em;
 }
 
 .tests-hero__description {
@@ -130,12 +132,12 @@
 
 .tests-section {
     background: #f5f8fc;
-    padding: 24px 0 35px;
+    padding: 4rem 0;
 }
 
 .tests-section .container {
-    width: calc(100% - 48px);
-    max-width: 1180px;
+    /*width: calc(100% - 48px);*/
+    max-width: var(--container-max-width, 1200px);
     margin: 0 auto;
     box-sizing: border-box;
 }
@@ -161,6 +163,7 @@
     color: #536b84;
     font-size: 9px;
     cursor: pointer;
+    
 }
 
 .tests-filter:hover {
@@ -188,13 +191,13 @@
    ========================================================= */
 
 .tests-heading {
-    margin-bottom: 18px;
+    margin-bottom: 1.5rem;
 }
 
 .tests-heading h2 {
-    margin: 0 0 4px;
+    margin: 0 0 0.5rem;
     color: #092b50;
-    font-size: 19px;
+    font-size: 2rem;
     line-height: 1.2;
     font-weight: 800;
 }
@@ -202,7 +205,7 @@
 .tests-heading p {
     margin: 0;
     color: #71859b;
-    font-size: 9px;
+    font-size: 1rem;
 }
 
 .tests-grid {
