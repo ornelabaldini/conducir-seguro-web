@@ -1,4 +1,6 @@
-﻿*, *::before, *::after {
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -18,7 +20,6 @@ body {
   padding: 0 1.5rem;
 }
 
-/* Utilidades globales */
 .section-padding {
   padding: 5rem 0;
 }
@@ -54,7 +55,6 @@ body {
   max-width: 600px;
 }
 
-/* Botones globales */
 .btn {
   display: inline-flex;
   align-items: center;

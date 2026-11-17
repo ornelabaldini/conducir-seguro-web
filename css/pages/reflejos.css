@@ -53,7 +53,6 @@
     min-height: 52px;
     border-radius: 12px;
 }
-
 .reflejos-target {
     display: grid;
     place-items: center;
@@ -71,19 +70,6 @@
     cursor: pointer;
     touch-action: manipulation;
     transition: background-color .15s ease, color .15s ease, border-color .15s ease;
-}
-
-.reflejos-target--ready {
-    border-color: #15803d;
-    background: #16a34a;
-    color: #fff;
-}
-
-.reflejos-target--early {
-    border-color: #b45309;
-    background: #fff7ed;
-    color: #9a3412;
-    cursor: default;
 }
 
 .reflejos-target:disabled {
@@ -112,16 +98,6 @@
     #reflejos-panel #reflejos-back {
         width: 100%;
         margin-top: 8px;
-    }
-
-    .reflejos-target {
-        min-height: 180px;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .reflejos-target {
-        transition: none;
     }
 }
 
@@ -199,12 +175,6 @@
     box-shadow: 0 10px 30px rgba(21, 128, 61, .25);
 }
 
-#reflejos-panel .reflejos-target--early {
-    border: 2px solid #b45309;
-    background: #fff7ed;
-    color: #9a3412;
-}
-
 #reflejos-panel .dax-results-grid > div {
     min-width: 0;
     overflow-wrap: anywhere;
@@ -229,13 +199,6 @@
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    #reflejos-panel .reflejos-target {
-        transition: none;
-    }
-}
-
-/* ESPACIADO-REFLEJOS-V3 */
 /* Separacion de la marca y el contenido respecto de los bordes */
 header .container,
 .navbar .container,
@@ -268,13 +231,6 @@ header .container,
     white-space: normal;
 }
 
-#reflejos-panel .reflejos-target--stop {
-    border: 3px solid #b91c1c;
-    background: #dc2626;
-    color: #fff;
-    box-shadow: 0 10px 28px rgba(220, 38, 38, .24);
-}
-
 #reflejos-panel #reflejos-error-note {
     margin: 14px 0;
     padding: 12px 14px;
@@ -295,7 +251,7 @@ header .container,
     #reflejos-panel {
         width: calc(100% - 28px);
         margin: 18px auto;
-        padding-inline: 4px;
+        padding-inline: 8px;
     }
 
     #reflejos-panel #reflejos-intro,
@@ -316,12 +272,4 @@ header .container,
     .header-container {
         padding-inline: 18px;
     }
-}
-
-/* REFLEJOS-AMARILLO-V1 */
-#reflejos-panel .reflejos-target--caution {
-    border: 3px solid #a16207;
-    background: #facc15;
-    color: #422006;
-    box-shadow: 0 10px 28px rgba(161, 98, 7, .22);
 }
