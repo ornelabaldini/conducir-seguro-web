@@ -1,3 +1,10 @@
+/* ==========================================
+   PAGE: HOME (SOLID - Modular BEM CSS)
+   ========================================== */
+
+/* ------------------------------------------
+   1. HERO SECTION
+   ------------------------------------------ */
 .hero {
   position: relative;
   background: var(--bg-dark-header) url('../../image/hero-bg-car.jpg') center/cover no-repeat;
@@ -47,6 +54,7 @@
   margin-bottom: 2rem;
 }
 
+/* Tira de Features en Hero */
 .hero__features {
   display: flex;
   gap: 3rem;
@@ -72,6 +80,9 @@
   color: #e2e8f0;
 }
 
+/* ------------------------------------------
+   2. ABOUT SUMMARY
+   ------------------------------------------ */
 .about-summary__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -114,6 +125,9 @@
   object-fit: contain;
 }
 
+/* ------------------------------------------
+   3. TESTS SUMMARY GRID
+   ------------------------------------------ */
 .tests-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -149,6 +163,12 @@
   justify-content: center;
   margin-bottom: 1.25rem;
 }
+.test-card__icon img {
+  width: 58px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+}
 
 .test-card__title {
   font-size: 1.15rem;
@@ -163,6 +183,9 @@
   flex-grow: 1;
 }
 
+/* ------------------------------------------
+   4. TEAM SUMMARY
+   ------------------------------------------ */
 .team-summary__header {
   display: flex;
   align-items: flex-end;
@@ -232,6 +255,9 @@
   color: #0284c7;
 }
 
+/* ------------------------------------------
+   RESPONSIVE DESIGN (BREAKPOINTS)
+   ------------------------------------------ */
 @media (max-width: 1024px) {
   .tests-grid, .team-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -265,6 +291,7 @@
     grid-template-columns: 1fr;
   }
 }
+/* Beneficios de inicio: dos columnas en móviles */
 @media (max-width: 600px) {
     .checklist {
         display: grid;
